@@ -8,7 +8,6 @@
  * @package  Prefs
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Prefs
  */
 
 /**
@@ -23,7 +22,6 @@
  * @package  Prefs
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Prefs
  */
 class Horde_Prefs_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
 {

@@ -8,7 +8,6 @@
  * @category  Horde
  * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link      http://pear.horde.org/index.php?package=Prefs
  * @package   Prefs
  */
 
@@ -20,7 +19,6 @@
  * @copyright 2014-2017 Horde LLC
  * @internal
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link      http://pear.horde.org/index.php?package=Prefs
  * @package   Prefs
  */
 class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
