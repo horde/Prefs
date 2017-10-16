@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-09-22</date>
+ <date>2017-10-17</date>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -40,12 +40,12 @@
    <dir name="bin">
     <file name="horde-prefs" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
     </file>
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Prefs">
-      <file name="COPYING" role="doc" />
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Prefs -->
     </dir> <!-- /doc/Horde -->
@@ -380,6 +380,7 @@
      </dir> <!-- /test/Horde/Prefs -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
+   <file name="LICENSE" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -500,18 +501,16 @@
  <phprelease>
   <filelist>
    <install as="horde-prefs" name="bin/horde-prefs" />
-   <install as="COPYING" name="doc/Horde/Prefs/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Prefs/UPGRADING" />
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
-   <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
-   <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
-   <install as="Horde/Prefs/Identity.php" name="lib/Horde/Prefs/Identity.php" />
-   <install as="Horde/Prefs/Scope.php" name="lib/Horde/Prefs/Scope.php" />
-   <install as="Horde/Prefs/Translation.php" name="lib/Horde/Prefs/Translation.php" />
    <install as="Horde/Prefs/Cache/Base.php" name="lib/Horde/Prefs/Cache/Base.php" />
    <install as="Horde/Prefs/Cache/HordeCache.php" name="lib/Horde/Prefs/Cache/HordeCache.php" />
    <install as="Horde/Prefs/Cache/Null.php" name="lib/Horde/Prefs/Cache/Null.php" />
    <install as="Horde/Prefs/Cache/Session.php" name="lib/Horde/Prefs/Cache/Session.php" />
+   <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
+   <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
+   <install as="Horde/Prefs/Identity.php" name="lib/Horde/Prefs/Identity.php" />
+   <install as="Horde/Prefs/Scope.php" name="lib/Horde/Prefs/Scope.php" />
    <install as="Horde/Prefs/Storage/Base.php" name="lib/Horde/Prefs/Storage/Base.php" />
    <install as="Horde/Prefs/Storage/File.php" name="lib/Horde/Prefs/Storage/File.php" />
    <install as="Horde/Prefs/Storage/Imsp.php" name="lib/Horde/Prefs/Storage/Imsp.php" />
@@ -520,7 +519,8 @@
    <install as="Horde/Prefs/Storage/Mongo.php" name="lib/Horde/Prefs/Storage/Mongo.php" />
    <install as="Horde/Prefs/Storage/Null.php" name="lib/Horde/Prefs/Storage/Null.php" />
    <install as="Horde/Prefs/Storage/Sql.php" name="lib/Horde/Prefs/Storage/Sql.php" />
-   <install as="locale/Horde_Prefs.pot" name="locale/Horde_Prefs.pot" />
+   <install as="Horde/Prefs/Translation.php" name="lib/Horde/Prefs/Translation.php" />
+   <install as="LICENSE" name="LICENSE" />
    <install as="locale/ar/LC_MESSAGES/Horde_Prefs.mo" name="locale/ar/LC_MESSAGES/Horde_Prefs.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Prefs.po" name="locale/ar/LC_MESSAGES/Horde_Prefs.po" />
    <install as="locale/bg/LC_MESSAGES/Horde_Prefs.mo" name="locale/bg/LC_MESSAGES/Horde_Prefs.mo" />
@@ -553,6 +553,7 @@
    <install as="locale/gl/LC_MESSAGES/Horde_Prefs.po" name="locale/gl/LC_MESSAGES/Horde_Prefs.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Prefs.mo" name="locale/he/LC_MESSAGES/Horde_Prefs.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Prefs.po" name="locale/he/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/Horde_Prefs.pot" name="locale/Horde_Prefs.pot" />
    <install as="locale/hr/LC_MESSAGES/Horde_Prefs.mo" name="locale/hr/LC_MESSAGES/Horde_Prefs.mo" />
    <install as="locale/hr/LC_MESSAGES/Horde_Prefs.po" name="locale/hr/LC_MESSAGES/Horde_Prefs.po" />
    <install as="locale/hu/LC_MESSAGES/Horde_Prefs.mo" name="locale/hu/LC_MESSAGES/Horde_Prefs.mo" />
@@ -612,8 +613,8 @@
    <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
    <install as="Horde/Prefs/bootstrap.php" name="test/Horde/Prefs/bootstrap.php" />
    <install as="Horde/Prefs/conf.php.dist" name="test/Horde/Prefs/conf.php.dist" />
-   <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
    <install as="Horde/Prefs/fixtures/preferences.1" name="test/Horde/Prefs/fixtures/preferences.1" />
+   <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
    <install as="Horde/Prefs/Stub/Storage.php" name="test/Horde/Prefs/Stub/Storage.php" />
    <install as="Horde/Prefs/Unit/IdentityTest.php" name="test/Horde/Prefs/Unit/IdentityTest.php" />
    <install as="Horde/Prefs/Unit/Storage/FileTest.php" name="test/Horde/Prefs/Unit/Storage/FileTest.php" />
@@ -1236,7 +1237,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-09-22</date>
+   <date>2017-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Prefs#getScopeObject().
