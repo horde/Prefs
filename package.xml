@@ -46,7 +46,7 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Prefs">
-      <file name="UPGRADING" role="doc" />
+      <file name="UPGRADING.rst" role="doc" />
      </dir> <!-- /doc/Horde/Prefs -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -501,7 +501,7 @@
  <phprelease>
   <filelist>
    <install as="horde-prefs" name="bin/horde-prefs" />
-   <install as="UPGRADING" name="doc/Horde/Prefs/UPGRADING" />
+   <install as="UPGRADING.rst" name="doc/Horde/Prefs/UPGRADING.rst" />
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
    <install as="Horde/Prefs/Cache/Base.php" name="lib/Horde/Prefs/Cache/Base.php" />
    <install as="Horde/Prefs/Cache/HordeCache.php" name="lib/Horde/Prefs/Cache/HordeCache.php" />
