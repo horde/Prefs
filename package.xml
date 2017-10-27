@@ -641,7 +641,7 @@
    <date>2003-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-Initial release as a PEAR package
+* Initial release as a PEAR package
    </notes>
   </release>
   <release>
@@ -674,8 +674,8 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Data in postgres must be stored in a BYTEA field, not a TEXT field (Bug #8130).
-   * Converted to package.xml 2.0 for pear.horde.org
-   * Added files-based preferences backend (thomas.jarosch@intra2net.com, Request #6653)
+* Converted to package.xml 2.0 for pear.horde.org
+* Added files-based preferences backend (thomas.jarosch@intra2net.com, Request #6653)
    </notes>
   </release>
   <release>
@@ -893,7 +893,7 @@ Initial release as a PEAR package
    <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
