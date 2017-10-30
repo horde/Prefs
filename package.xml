@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-09-22</date>
+ <date>2017-10-30</date>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -45,6 +45,7 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Prefs">
+      <file name="CHANGES" role="doc" />
       <file name="COPYING" role="doc" />
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Prefs -->
@@ -500,6 +501,7 @@
  <phprelease>
   <filelist>
    <install as="horde-prefs" name="bin/horde-prefs" />
+   <install as="CHANGES" name="doc/Horde/Prefs/CHANGES" />
    <install as="COPYING" name="doc/Horde/Prefs/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Prefs/UPGRADING" />
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
@@ -1236,7 +1238,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-09-22</date>
+   <date>2017-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Prefs#getScopeObject().
