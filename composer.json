@@ -1,10 +1,15 @@
 {
     "name": "horde/prefs",
-    "description": "Horde Preferences API",
+    "description": "User preferences library",
     "type": "library",
-    "homepage": "https://pear.horde.org",
+    "homepage": "https://www.horde.org/libraries/Horde_Prefs",
     "license": "LGPL-2.1",
     "authors": [
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        },
         {
             "name": "Michael Slusarz",
             "email": "slusarz@horde.org",
@@ -14,15 +19,10 @@
             "name": "Chuck Hagenbuch",
             "email": "chuck@horde.org",
             "role": "lead"
-        },
-        {
-            "name": "Jan Schneider",
-            "email": "jan@horde.org",
-            "role": "lead"
         }
     ],
     "version": "2.9.0",
-    "time": "2017-09-22",
+    "time": "2017-11-14",
     "repositories": [
         {
             "type": "pear",
