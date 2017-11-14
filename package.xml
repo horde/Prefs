@@ -377,7 +377,6 @@
       <file name="Autoload.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
-      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Prefs -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -614,7 +613,6 @@
    <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
    <install as="Horde/Prefs/bootstrap.php" name="test/Horde/Prefs/bootstrap.php" />
    <install as="Horde/Prefs/conf.php.dist" name="test/Horde/Prefs/conf.php.dist" />
-   <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
    <install as="Horde/Prefs/fixtures/preferences.1" name="test/Horde/Prefs/fixtures/preferences.1" />
    <install as="Horde/Prefs/Stub/Storage.php" name="test/Horde/Prefs/Stub/Storage.php" />
    <install as="Horde/Prefs/Unit/IdentityTest.php" name="test/Horde/Prefs/Unit/IdentityTest.php" />
