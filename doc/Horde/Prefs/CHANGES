@@ -1,6 +1,6 @@
-----------
-v2.9.0-git
-----------
+------------
+v3.0.0alpha1
+------------
 
 [jan] Add Horde_Prefs#getScopeObject().
 

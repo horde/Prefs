@@ -3,8 +3,8 @@ id: Prefs
 name: Prefs
 full: User preferences library
 description: >-
-  A library that provides a common abstracted interface into 
-  various preferences storage mediums. It also includes all of the functions for
+  A library that provides a common abstracted interface into  various
+  preferences storage mediums. It also includes all of the functions for
   retrieving, storing, and checking preference values.
 list: dev
 type: library
@@ -29,11 +29,11 @@ authors:
     active: false
     role: lead
 version:
-  release: 2.9.0
-  api: 2.9.0
+  release: 3.0.0alpha1
+  api: 3.0.0alpha1
 state:
-  release: stable
-  api: stable
+  release: alpha
+  api: alpha
 license:
   identifier: LGPL-2.1
   uri: http://www.horde.org/licenses/lgpl21
