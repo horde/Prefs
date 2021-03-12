@@ -8,7 +8,17 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
+namespace Horde\Prefs\Unit\Storage\Sql;
+use Horde_Test_Case;
+use \Horde_Log_Logger;
+use \Horde_Log_Handler_Cli;
+use \Horde_Db_Migration_Migrator;
+use \Horde_Db_Value_Binary;
+use \Horde_Prefs_Storage_Sql;
+use \Horde_Prefs;
+use \Horde_Prefs_Stub_Storage;
+
+class Base extends Horde_Test_Case
 {
     protected static $db;
 
@@ -55,7 +65,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
         );
     }
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
         //self::$db->setLogger($logger);
@@ -81,7 +91,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
         self::$prefs = new Horde_Prefs_Storage_Sql('joe', array('db' => self::$db));
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         self::$prefs = null;
         if (self::$db) {
@@ -97,7 +107,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
         }
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!self::$db) {
             $this->markTestSkipped(self::$reason);

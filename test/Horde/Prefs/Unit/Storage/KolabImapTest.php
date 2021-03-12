@@ -10,6 +10,8 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
+namespace Horde\Prefs\Unit\Storage;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test the preferences storage backend for Kolab.
@@ -19,9 +21,9 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
+class KolabImapTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Horde_Kolab_Storage_Factory')) {
             $this->markTestSkipped('Horde_Kolab_Storage package is missing');
