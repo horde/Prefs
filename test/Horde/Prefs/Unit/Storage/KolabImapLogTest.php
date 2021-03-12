@@ -9,6 +9,8 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
+namespace Horde\Prefs\Unit;
+use Horde_Test_Log;
 
 /**
  * Test logging in the preferences storage backend for Kolab.
@@ -23,9 +25,9 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
+class KolabImapLogTest extends Horde_Test_Log
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Horde_Kolab_Storage_Factory')) {
             $this->markTestSkipped('Horde_Kolab_Storage package is missing');
