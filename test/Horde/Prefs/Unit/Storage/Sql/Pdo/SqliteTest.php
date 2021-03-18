@@ -23,11 +23,9 @@ class SqliteTest extends Base
     {
         $factory_db = new Horde_Test_Factory_Db();
 
-        try {
+        if (class_exists('Horde_Db_Adapter_Pdo_Sqlite')) {
             self::$db = $factory_db->create();
             parent::setUpBeforeClass();
-        } catch (Horde_Test_Exception $e) {
-            self::$reason = 'Sqlite not available';
-        }
+        } 
     }
 }

@@ -30,21 +30,26 @@ class Base extends Horde_Test_Case
 
     public function testCreatePreferences()
     {
-        $p = new Horde_Prefs(
-            'test',
-            array(
-                self::$prefs,
-                new Horde_Prefs_Stub_Storage('test')
-            )
-        );
-        $p['a'] = 'c';
-        $p->store();
-        $this->assertEquals(
-            1,
-            self::$db->selectValue(
-                'SELECT COUNT(*) FROM horde_prefs WHERE pref_scope = ?',
-                array('test'))
-        );
+        if (class_exists('Horde_Db_Adapter_Pdo_Sqlite')){
+            $p = new Horde_Prefs(
+                'test',
+                array(
+                    self::$prefs,
+                    new Horde_Prefs_Stub_Storage('test')
+                )
+            );
+            $p['a'] = 'c';
+            $p->store();
+            $this->assertEquals(
+                1,
+                self::$db->selectValue(
+                    'SELECT COUNT(*) FROM horde_prefs WHERE pref_scope = ?',
+                    array('test'))
+            );
+        } else {
+        	$this->markTestSkipped('DB library not found.'); 
+        }
+        
     }
 
     public function testModifyPreferences()
