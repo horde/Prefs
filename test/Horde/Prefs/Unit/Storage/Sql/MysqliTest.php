@@ -2,6 +2,9 @@
 /**
  * Prepare the test setup.
  */
+namespace Horde\Prefs\Unit\Storage\Sql;
+use Horde_Prefs_Test_Sql_Base;
+
 require_once __DIR__ . '/Base.php';
 
 /**
@@ -13,9 +16,9 @@ require_once __DIR__ . '/Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Prefs_Unit_Storage_Sql_MysqliTest extends Horde_Prefs_Test_Sql_Base
+class MysqliTest extends Base
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         if (!extension_loaded('mysqli')) {
             self::$reason = 'No mysqli extension';
