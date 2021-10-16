@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/prefs",
     "description": "User preferences library",
     "type": "library",
@@ -22,7 +21,7 @@
             "role": "lead"
         }
     ],
-    "time": "2021-03-13",
+    "time": "2021-10-16",
     "repositories": [
         {
             "type": "composer",
@@ -31,27 +30,33 @@
     ],
     "require": {
         "php": "^7",
-        "horde/exception": "^3 || dev-FRAMEWORK_6_0",
-        "horde/mail": "^3 || dev-FRAMEWORK_6_0",
-        "horde/mime": "^3 || dev-FRAMEWORK_6_0",
-        "horde/translation": "^3 || dev-FRAMEWORK_6_0",
-        "horde/util": "^3 || dev-FRAMEWORK_6_0",
+        "horde/exception": "^3",
+        "horde/mail": "^3",
+        "horde/mime": "^3",
+        "horde/translation": "^3",
+        "horde/util": "^3",
         "ext-json": "*"
     },
+    "require-dev": {},
     "suggest": {
-        "horde/autoloader": "^3 || dev-FRAMEWORK_6_0",
-        "horde/cache": "^3 || dev-FRAMEWORK_6_0",
-        "horde/db": "^3 || dev-FRAMEWORK_6_0",
-        "horde/image": "^3 || dev-FRAMEWORK_6_0",
-        "horde/imsp": "^3 || dev-FRAMEWORK_6_0",
-        "horde/kolab_storage": "^3 || dev-FRAMEWORK_6_0",
-        "horde/ldap": "^3 || dev-FRAMEWORK_6_0",
-        "horde/mongo": "^2 || dev-FRAMEWORK_6_0",
-        "horde/test": "^3 || dev-FRAMEWORK_6_0"
+        "horde/autoloader": "^3",
+        "horde/cache": "^3",
+        "horde/db": "^3",
+        "horde/image": "^3",
+        "horde/imsp": "^3",
+        "horde/kolab_storage": "^3",
+        "horde/ldap": "^3",
+        "horde/mongo": "^2",
+        "horde/test": "^3"
     },
     "autoload": {
         "psr-0": {
             "Horde_Prefs": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Horde\\Prefs\\Test\\": "test/"
         }
     },
     "bin": [
