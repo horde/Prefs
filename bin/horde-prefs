@@ -44,6 +44,7 @@
  *   $conf['driver'] = 'KolabImap';
  *   $factory = new Horde_Kolab_Storage_Factory(
  *       array(
+ * 
  *           'driver' => 'horde',
  *           'params' => array(
  *               'host' => 'example.org',
@@ -71,21 +72,38 @@
  *
  * @author Gunnar Wrobel <wrobel@horde.org>
  */
+use \Composer\InstalledVersions;
 
-if (strpos('@php_dir@', '@php_dir') === 0) {
-    set_include_path(__DIR__ . '/../../../lib' . PATH_SEPARATOR . get_include_path());
+// Autoloader search run in composer setups
+$autoloaders = [
+    __DIR__ . '/../vendor/autoload.php', // prefs is the root package
+    __DIR__ . '/../../../../vendor/autoload.php', // prefs is in the vendor dir
+    // handle "git developer install" and pear cases
+    'Horde/Autoloader/Default.php'
+];
+
+foreach ($autoloaders as $autoloader) {
+    if (file_exists($autoloader)) {
+        require_once $autoloader;
+        break;
+    }
 }
 
-@include 'Horde/Autoloader/Default.php';
-if (!class_exists('Horde_Autoloader_Default')) {
-   die('The "Horde_Autoloader" PEAR package is unavailable. Install it with "pear install Horde_Autoloader" first!' . "\n");
+if (!class_exists(InstalledVersions::class) && !class_exists('Horde_Autoloader_Default')) {
+   die('Neither Composer nor PEAR Horde_Autoloader_Default available'. "\n");
 }
 
 $args = $_SERVER['argv'];
 array_shift($args);
 
 if (empty($args) || empty($args[0])) {
-   die('You must specify a path to the configuration file as the first argument!' . "\n");
+    // Special case: We have a running Horde installation and prefs is in its vendor dir
+    $hordeConfig = __DIR__ . '/../../../../var/config/horde/conf.php';
+    if (is_readable($hordeConfig)) {
+        array_unshift($args, realpath($hordeConfig));
+    } else {
+        die('You must specify a path to the configuration file as the first argument!' . "\n");
+    }
 }
 
 @include realpath($args[0]);
@@ -94,7 +112,11 @@ if (empty($conf)) {
 }
 
 if (!isset($conf['driver'])) {
-    die(sprintf('%s did not provide the expected driver configuration ($conf[\'driver\'])!', $args[0]) . "\n");
+    if (!empty($conf['prefs']['driver'])) {
+        $conf['driver'] = $conf['prefs']['driver'];
+    } else {
+        die(sprintf('%s did not provide the expected driver configuration ($conf[\'driver\'])!', $args[0]) . "\n");
+    }
 }
 $storage_class = 'Horde_Prefs_Storage_' . Horde_String::ucfirst($conf['driver']);
 
