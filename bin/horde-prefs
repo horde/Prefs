@@ -96,7 +96,7 @@ if (!class_exists(InstalledVersions::class) && !class_exists('Horde_Autoloader_D
 $args = $_SERVER['argv'];
 array_shift($args);
 
-if (empty($args) || empty($args[0])) {
+if (empty($args[0]) || !is_readable(realpath($args[0]))) {
     // Special case: We have a running Horde installation and prefs is in its vendor dir
     $hordeConfig = __DIR__ . '/../../../../var/config/horde/conf.php';
     if (is_readable($hordeConfig)) {
@@ -106,7 +106,7 @@ if (empty($args) || empty($args[0])) {
     }
 }
 
-@include realpath($args[0]);
+include realpath($args[0]);
 if (empty($conf)) {
     die(sprintf('%s did not provide the expected "$conf" configuration array!', $args[0]) . "\n");
 }
@@ -114,6 +114,28 @@ if (empty($conf)) {
 if (!isset($conf['driver'])) {
     if (!empty($conf['prefs']['driver'])) {
         $conf['driver'] = $conf['prefs']['driver'];
+        if ($conf['driver'] == 'Sql') {
+            if ($conf['prefs']['params']['driverconfig'] == 'horde') {
+                $sqlDriverName = 'Horde_Db_Adapter_' . ucfirst($conf['sql']['phptype']);
+                $conf['sql']['host'] = $conf['sql']['hostspec'];
+                $conf['prefs']['params']['db'] = new $sqlDriverName($conf['sql']);
+            } else {
+                $sqlDriverName = 'Horde_Db_Adapter_' . ucfirst($conf['prefs']['params']['phptype']);
+                // This looks like a bug in horde_db_adapter
+                $conf['prefs']['params']['host'] = $conf['prefs']['params']['hostspec'];
+                $conf['prefs']['params']['db'] = new $sqlDriverName($conf['prefs']['params']);
+            }
+        }
+        if ($conf['driver'] == 'Ldap') {
+            if ($conf['prefs']['params']['driverconfig'] == 'horde') {
+                $conf['prefs']['params']['ldap'] = new Horde_Ldap($conf['ldap']);
+            } else {
+                // This looks like a bug in horde_db_adapter
+                $conf['prefs']['params']['ldap'] = new Horde_Ldap($conf['prefs']['params']);
+            }
+        }
+
+        $conf['params'] = $conf['prefs']['params'];
     } else {
         die(sprintf('%s did not provide the expected driver configuration ($conf[\'driver\'])!', $args[0]) . "\n");
     }
@@ -121,7 +143,7 @@ if (!isset($conf['driver'])) {
 $storage_class = 'Horde_Prefs_Storage_' . Horde_String::ucfirst($conf['driver']);
 
 if (empty($args[1])) {
-   die('You must specify a the id of the user you want to work with as second argument!' . "\n");
+   die('You must specify the id of the user you want to work with as second argument!' . "\n");
 }
 $storage = new $storage_class($args[1], $conf['params']);
 
