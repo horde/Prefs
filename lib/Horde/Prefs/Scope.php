@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
@@ -315,10 +316,21 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function serialize()
     {
-        return json_encode(array(
-            $this->scope,
-            $this->_prefs
-        ));
+        try {
+            $ret = json_encode([
+                $this->scope,
+                $this->_prefs
+            ], JSON_THROW_ON_ERROR);
+        } catch (JsonException $ex) {
+            Horde::log(sprintf(
+                'failed to serialize prefs for scope %s. JSON ERROR: %s',
+                $this->scope,
+                $ex->getMessage()
+            ), 'ERROR');
+            // make sure the interface is respected
+            $ret = null;
+        }
+        return $ret;
     }
 
     /**
@@ -327,5 +339,4 @@ class Horde_Prefs_Scope implements Iterator, Serializable
     {
         list($this->scope, $this->_prefs) = json_decode($data, true);
     }
-
 }
