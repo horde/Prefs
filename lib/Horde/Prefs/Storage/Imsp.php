@@ -29,7 +29,7 @@ class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage_Base
     public function __construct($user, array $params = array())
     {
         if (empty($params['imsp'])) {
-            throw new InvalidArguementException('Missing required imsp parameter.');
+            throw new InvalidArgumentException('Missing required imsp parameter.');
         }
         $this->_imsp = $params['imsp'];
         parent::__construct($user, $params);
