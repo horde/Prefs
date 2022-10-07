@@ -58,4 +58,14 @@ dependencies:
       horde/kolab_storage: ^3
       horde/ldap: ^3
       horde/mongo: ^2
+  dev:
+    composer:
+      horde/autoloader: ^3
+      horde/cache: ^3
+      horde/db: ^3
+      horde/image: ^3
+      horde/imsp: ^3
+      horde/kolab_storage: ^3
+      horde/ldap: ^3
+      horde/mongo: ^2
       horde/test: ^3
