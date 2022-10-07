@@ -20,7 +20,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Prefs
  */
-class Horde_Prefs_Scope implements Iterator, Serializable
+class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
 {
     /**
      * Is the object being initialized?
@@ -321,11 +321,34 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function serialize()
     {
+        $this->jsonSerialize();
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            $this->scope,
+            $this->_prefs
+        ];
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $this->__unserialize(json_decode($data, true));
+    }
+    public function __unserialize(array $data): void
+    {
+        list($this->scope, $this->_prefs) = $data;
+    }
+
+    public function jsonSerialize(): string {
         try {
-            $ret = json_encode([
-                $this->scope,
-                $this->_prefs
-            ], JSON_THROW_ON_ERROR);
+            $ret = json_encode(
+                $this->__serialize(),
+                JSON_THROW_ON_ERROR
+            );
         } catch (JsonException $ex) {
             Horde::log(sprintf(
                 'failed to serialize prefs for scope %s. JSON ERROR: %s',
@@ -336,12 +359,5 @@ class Horde_Prefs_Scope implements Iterator, Serializable
             $ret = null;
         }
         return $ret;
-    }
-
-    /**
-     */
-    public function unserialize($data)
-    {
-        list($this->scope, $this->_prefs) = json_decode($data, true);
     }
 }
