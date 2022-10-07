@@ -415,6 +415,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->_identities[$offset]);
@@ -423,6 +424,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->get($offset);
@@ -431,6 +433,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         // $value is ignored.
@@ -440,6 +443,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $this->delete($offset);
@@ -450,7 +454,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_identities);
     }
@@ -460,7 +464,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_identities);
     }
