@@ -526,22 +526,25 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /* ArrayAccess methods. */
-
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return !is_null($this->getValue($offset));
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->getValue($offset);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->setValue($offset, $value);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $this->remove($offset);
