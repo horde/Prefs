@@ -21,7 +21,7 @@
             "role": "lead"
         }
     ],
-    "time": "2022-03-10",
+    "time": "2022-10-08",
     "repositories": [
         {
             "type": "composer",
@@ -37,8 +37,7 @@
         "horde/util": "^3 || dev-FRAMEWORK_6_0",
         "ext-json": "*"
     },
-    "require-dev": {},
-    "suggest": {
+    "require-dev": {
         "horde/autoloader": "^3 || dev-FRAMEWORK_6_0",
         "horde/cache": "^3 || dev-FRAMEWORK_6_0",
         "horde/db": "^3 || dev-FRAMEWORK_6_0",
@@ -48,6 +47,16 @@
         "horde/ldap": "^3 || dev-FRAMEWORK_6_0",
         "horde/mongo": "^2 || dev-FRAMEWORK_6_0",
         "horde/test": "^3 || dev-FRAMEWORK_6_0"
+    },
+    "suggest": {
+        "horde/autoloader": "^3 || dev-FRAMEWORK_6_0",
+        "horde/cache": "^3 || dev-FRAMEWORK_6_0",
+        "horde/db": "^3 || dev-FRAMEWORK_6_0",
+        "horde/image": "^3 || dev-FRAMEWORK_6_0",
+        "horde/imsp": "^3 || dev-FRAMEWORK_6_0",
+        "horde/kolab_storage": "^3 || dev-FRAMEWORK_6_0",
+        "horde/ldap": "^3 || dev-FRAMEWORK_6_0",
+        "horde/mongo": "^2 || dev-FRAMEWORK_6_0"
     },
     "autoload": {
         "psr-0": {
@@ -61,5 +70,10 @@
     },
     "bin": [
         "bin/horde-prefs"
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "horde/horde-installer-plugin": true
+        }
+    }
 }
