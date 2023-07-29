@@ -19,9 +19,9 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
+class Horde_Prefs_Unit_Storage_KolabImapTest extends Horde_Test_Case
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Horde_Kolab_Storage_Factory')) {
             $this->markTestSkipped('Horde_Kolab_Storage package is missing');
@@ -29,16 +29,15 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
         $_SESSION = array();
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testMissingStorage()
     {
+        $this->expectException('InvalidArgumentException');
         $b = new Horde_Prefs_Storage_KolabImap('nobody');
     }
 
     public function testConstruction()
     {
+        $this->expectNotToPerformAssertions();
         $b = new Horde_Prefs_Storage_KolabImap(
             'nobody', array('kolab' => $this->_createDefaultStorage())
         );
@@ -161,7 +160,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
                     'data' => array('queryset' => 'horde'),
                 ),
                 'cache'  => new Horde_Cache(new Horde_Cache_Storage_Mock()),
-                'logger' => $this->getMock('Horde_Log_Logger'),
+                'logger' => $this->getMockBuilder('Horde_Log_Logger')->getMock(),
             )
         );
         return $factory->create();

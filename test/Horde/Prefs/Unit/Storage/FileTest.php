@@ -23,26 +23,23 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Prefs_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
+class Horde_Prefs_Unit_Storage_FileTest extends Horde_Test_Case
 {
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testMissingDirectory()
     {
+        $this->expectException('InvalidArgumentException');
         $b = new Horde_Prefs_Storage_File('nobody');
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testInvalidDirectory()
     {
+        $this->expectException('InvalidArgumentException');
         $b = new Horde_Prefs_Storage_File('nobody', array('directory' => __DIR__ . '/DOES_NOT_EXIST'));
     }
 
     public function testConstruction()
     {
+        $this->expectNotToPerformAssertions();
         $b = new Horde_Prefs_Storage_File('nobody', array('directory' => Horde_Util::createTempDir()));
     }
 }

@@ -21,13 +21,13 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
  */
-class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
+class Horde_Prefs_Unit_IdentityTest extends Horde_Test_Case
 {
     private $identity;
 
     /**
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->identity = new Horde_Prefs_Identity(array(
             'prefs' => new Horde_Prefs(
@@ -53,7 +53,7 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     {
         $this->identity->add(array());
 
-        $this->assertInternalType('array', $this->identity->get(0));
+        $this->assertIsArray($this->identity->get(0));
         $this->assertNull($this->identity->get(1));
     }
 
@@ -87,7 +87,7 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     {
         $this->identity->add(array());
 
-        $this->assertInternalType('array', $this->identity[0]);
+        $this->assertIsArray($this->identity[0]);
         $this->assertNull($this->identity[1]);
     }
 
@@ -97,7 +97,7 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     {
         $this->identity->add(array());
 
-        $this->assertInternalType('array', $this->identity[0]);
+        $this->assertIsArray($this->identity[0]);
 
         unset($this->identity[0]);
 
