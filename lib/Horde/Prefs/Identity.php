@@ -98,11 +98,13 @@ implements ArrayAccess, Countable, IteratorAggregate
         $this->_prefs = $params['prefs'];
         $this->_user = $params['user'];
 
-        if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'])))) {
-            $this->_identities = $this->_prefs->getDefault($this->_prefnames['identities']);
-        }
+        foreach ($this->_prefs as $val) {
+            if (!($this->_identities = @unserialize($val->getValue($this->_prefnames['identities'])))) {
+                $this->_identities = $val->getDefault($this->_prefnames['identities']);
+            }
 
-        $this->setDefault($this->_prefs->getValue($this->_prefnames['default_identity']));
+            $this->setDefault($val->getValue($this->_prefnames['default_identity']));
+        }
     }
 
     /**
@@ -415,7 +417,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->_identities[$offset]);
     }
@@ -423,7 +425,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->get($offset);
     }
@@ -431,7 +433,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         // $value is ignored.
         $this->set($offset);
@@ -440,7 +442,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->delete($offset);
     }
@@ -450,7 +452,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_identities);
     }
@@ -460,7 +462,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_identities);
     }

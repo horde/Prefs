@@ -276,6 +276,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
 
     /**
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->_fromInternal($this->key());
@@ -283,6 +284,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
 
     /**
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->_prefs);
@@ -290,6 +292,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
 
     /**
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->_prefs);
@@ -297,6 +300,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
 
     /**
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         return reset($this->_prefs);
@@ -304,6 +308,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
 
     /**
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return !is_null(key($this->_prefs));
