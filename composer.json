@@ -23,35 +23,27 @@
     ],
     "version": "2.9.0",
     "time": "2017-11-11",
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "https://pear.horde.org"
-        }
-    ],
     "require": {
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/Horde_Exception": "^2",
-        "pear-pear.horde.org/Horde_Mail": "^2",
-        "pear-pear.horde.org/Horde_Mime": "^2",
-        "pear-pear.horde.org/Horde_Translation": "^2.2",
-        "pear-pear.horde.org/Horde_Util": "^2",
+        "horde/exception": "^2",
+        "horde/mail": "^2",
+        "horde/mime": "^2",
+        "horde/translation": "^2.2",
+        "horde/util": "^2",
         "ext-json": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Autoloader": "^2",
-        "pear-pear.horde.org/Horde_Cache": "^2",
-        "pear-pear.horde.org/Horde_Db": "^2.2",
-        "pear-pear.horde.org/Horde_Image": "^2",
-        "pear-pear.horde.org/Horde_Imsp": "^2",
-        "pear-pear.horde.org/Horde_Kolab_Storage": "^2",
-        "pear-pear.horde.org/Horde_Ldap": "^2",
-        "pear-pear.horde.org/Horde_Mongo": "^1",
-        "pear-pear.horde.org/Horde_Test": "^2.1"
+        "horde/autoloader": "^2",
+        "horde/cache": "^2",
+        "horde/db": "^2.2",
+        "horde/image": "^2",
+        "horde/imsp": "^2",
+        "horde/kolab_storage": "^2",
+        "horde/ldap": "^2",
+        "horde/mongo": "^1",
+        "horde/test": "^2.1"
     },
     "replace": {
-        "pear-pear.horde.org/Horde_Prefs": "2.*",
-        "pear-horde/Horde_Prefs": "2.*"
     },
     "autoload": {
         "psr-0": {
