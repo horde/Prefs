@@ -51,7 +51,7 @@ implements ArrayAccess, Countable, IteratorAggregate
      *
      * @var array
      */
-    protected $_names = array(); 
+    protected $_names = []; 
 
     /**
      * Preference names.
