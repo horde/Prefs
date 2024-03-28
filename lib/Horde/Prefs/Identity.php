@@ -46,6 +46,13 @@ implements ArrayAccess, Countable, IteratorAggregate
      */
     protected $_user = null;
 
+   /**
+     * Array containing all the names.
+     *
+     * @var array
+     */
+    protected $_names = []; 
+
     /**
      * Preference names.
      *
