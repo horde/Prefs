@@ -55,7 +55,6 @@ dependencies:
       horde/db: ^3
       horde/image: ^3
       horde/imsp: ^3
-      horde/kolab_storage: ^3
       horde/ldap: ^3
       horde/mongo: ^2
   dev:
@@ -65,7 +64,6 @@ dependencies:
       horde/db: ^3
       horde/image: ^3
       horde/imsp: ^3
-      horde/kolab_storage: ^3
       horde/ldap: ^3
       horde/mongo: ^2
       horde/test: ^3
