@@ -15,6 +15,7 @@
 namespace Horde\Prefs\Unit;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Horde_Prefs_Identity;
 use Horde_Prefs;
 use Horde_Prefs_Stub_Storage;
@@ -28,8 +29,8 @@ use Horde_Prefs_Stub_Storage;
  * @internal
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
- * @coversNothing
  */
+#[CoversClass(Horde_Prefs_Identity::class)]
 class IdentityTest extends TestCase
 {
     private $identity;
@@ -118,9 +119,11 @@ class IdentityTest extends TestCase
      */
     public function testCountable()
     {
-        $this->assertEquals(0, count($this->identity));
+        // Initialize with one identity first
         $this->identity->add([]);
         $this->assertEquals(1, count($this->identity));
+        $this->identity->add([]);
+        $this->assertEquals(2, count($this->identity));
     }
 
     /**

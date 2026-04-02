@@ -4,11 +4,15 @@
  * Prepare the test setup.
  */
 
-namespace Horde\Prefs\Unit\Storage\Sql;
+namespace Horde\Prefs\Integration;
 
-use Horde_Prefs_Test_Sql_Base;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Horde_Db_Adapter_Oci8;
+use Horde_Prefs_Storage_Sql;
+use Horde_Prefs;
+use SqlStorageTestBase;
 
-require_once __DIR__ . '/Base.php';
+require_once __DIR__ . '/../Unnamespaced/SqlStorageTestBase.php';
 
 /**
  * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
@@ -18,9 +22,10 @@ require_once __DIR__ . '/Base.php';
  * @package    Prefs
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @coversNothing
  */
-class Oci8Test extends Base
+#[CoversClass(Horde_Prefs_Storage_Sql::class)]
+#[CoversClass(Horde_Prefs::class)]
+class Oci8StorageTest extends SqlStorageTestBase
 {
     public static function setUpBeforeClass(): void
     {
@@ -28,26 +33,26 @@ class Oci8Test extends Base
             self::$reason = 'No oci8 extension';
             return;
         }
-        $config = self::getConfig(
-            'PREFS_SQL_OCI8_TEST_CONFIG',
-            __DIR__ . '/../../..'
-        );
-        if ($config && !empty($config['prefs']['sql']['oci8'])) {
-            self::$db = new Horde_Db_Adapter_Oci8($config['prefs']['sql']['oci8']);
-            parent::setUpBeforeClass();
-        } else {
-            self::$reason = 'No oci8 configuration';
+
+        // Check for config file
+        $configFile = __DIR__ . '/../../conf.php';
+        if (file_exists($configFile)) {
+            $config = include $configFile;
+            if (!empty($config['prefs']['sql']['oci8'])) {
+                self::$db = new Horde_Db_Adapter_Oci8($config['prefs']['sql']['oci8']);
+                parent::setUpBeforeClass();
+                return;
+            }
         }
+
+        self::$reason = 'No oci8 configuration';
     }
 
     public function testLargePreferences()
     {
         $p = new Horde_Prefs(
             'test',
-            [
-                self::$prefs,
-                new Horde_Prefs_Stub_Storage('test'),
-            ]
+            self::$prefs
         );
         $value = str_repeat('x', 4001);
         $p['a'] = $value;

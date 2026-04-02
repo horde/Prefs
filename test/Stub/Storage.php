@@ -19,9 +19,6 @@ class Horde_Prefs_Stub_Storage extends Horde_Prefs_Storage_Base
      */
     public function get($scope_ob)
     {
-        /** Provide dummy pref */
-        $scope_ob->set('a', 'b');
-        $scope_ob->set('identities', ['v' => []]);
         return $scope_ob;
     }
 

@@ -41,13 +41,13 @@
     "require-dev": {
         "horde/autoloader": "^3 || dev-FRAMEWORK_6_0",
         "horde/cache": "^3 || dev-FRAMEWORK_6_0",
+        "horde/cli": "^3 || dev-FRAMEWORK_6_0",
         "horde/db": "^3 || dev-FRAMEWORK_6_0",
         "horde/image": "^3 || dev-FRAMEWORK_6_0",
         "horde/imsp": "^3 || dev-FRAMEWORK_6_0",
-        "horde/kolab_storage": "^3 || dev-FRAMEWORK_6_0",
         "horde/ldap": "^3 || dev-FRAMEWORK_6_0",
-        "horde/mongo": "^2 || dev-FRAMEWORK_6_0",
-        "horde/test": "^3 || dev-FRAMEWORK_6_0"
+        "horde/log": "^3 || dev-FRAMEWORK_6_0",
+        "horde/mongo": "^2 || dev-FRAMEWORK_6_0"
     },
     "suggest": {
         "horde/autoloader": "^3 || dev-FRAMEWORK_6_0",
@@ -55,7 +55,6 @@
         "horde/db": "^3 || dev-FRAMEWORK_6_0",
         "horde/image": "^3 || dev-FRAMEWORK_6_0",
         "horde/imsp": "^3 || dev-FRAMEWORK_6_0",
-        "horde/kolab_storage": "^3 || dev-FRAMEWORK_6_0",
         "horde/ldap": "^3 || dev-FRAMEWORK_6_0",
         "horde/mongo": "^2 || dev-FRAMEWORK_6_0"
     },
@@ -66,8 +65,15 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Horde\\Prefs\\Test\\": "test/"
-        }
+            "Horde\\Prefs\\Unit\\": "test/unit/",
+            "Horde\\Prefs\\Integration\\": "test/integration/"
+        },
+        "psr-0": {
+            "": "test/Unnamespaced/"
+        },
+        "classmap": [
+            "test/Stub/"
+        ]
     },
     "bin": [
         "bin/horde-prefs"

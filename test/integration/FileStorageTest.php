@@ -11,9 +11,10 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 
-namespace Horde\Prefs\Unit\Storage;
+namespace Horde\Prefs\Integration;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Horde_Prefs_Storage_File;
 use Horde_Util;
 
@@ -29,9 +30,9 @@ use Horde_Util;
  * @package  Prefs
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @coversNothing
  */
-class FileTest extends TestCase
+#[CoversClass(Horde_Prefs_Storage_File::class)]
+class FileStorageTest extends TestCase
 {
     /**
      * @expectedException InvalidArgumentException

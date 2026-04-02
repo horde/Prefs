@@ -10,18 +10,12 @@
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 
-namespace Horde\Prefs\Unit\Storage\Sql;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-use Horde_Test_Case;
-use Horde_Log_Logger;
-use Horde_Log_Handler_Cli;
-use Horde_Db_Migration_Migrator;
-use Horde_Db_Value_Binary;
-use Horde_Prefs_Storage_Sql;
-use Horde_Prefs;
-use Horde_Prefs_Stub_Storage;
-
-class Base extends Horde_Test_Case
+#[CoversClass(Horde_Prefs_Storage_Sql::class)]
+#[CoversClass(Horde_Prefs::class)]
+class SqlStorageTestBase extends TestCase
 {
     protected static $db;
 
@@ -33,36 +27,35 @@ class Base extends Horde_Test_Case
 
     public function testCreatePreferences()
     {
-        if (class_exists('Horde_Db_Adapter_Pdo_Sqlite')) {
-            $p = new Horde_Prefs(
-                'test',
-                [
-                    self::$prefs,
-                    new Horde_Prefs_Stub_Storage('test'),
-                ]
-            );
-            $p['a'] = 'c';
-            $p->store();
-            $this->assertEquals(
-                1,
-                self::$db->selectValue(
-                    'SELECT COUNT(*) FROM horde_prefs WHERE pref_scope = ?',
-                    ['test']
-                )
-            );
-        } else {
-            $this->markTestSkipped('DB library not found.');
-        }
+        // Pre-insert the preference definition to simulate config/prefs.php
+        // The pref must exist before it can be modified
+        self::$db->insert(
+            'INSERT INTO horde_prefs (pref_uid, pref_scope, pref_name, pref_value) VALUES (?, ?, ?, ?)',
+            ['joe', 'test', 'a', new \Horde_Db_Value_Binary('default')]
+        );
 
+        $p = new \Horde_Prefs(
+            'test',
+            self::$prefs
+        );
+        $p['a'] = 'c';
+        $p->store();
+        $this->assertEquals(
+            'c',
+            $this->_readValue(
+                self::$db->selectValue(
+                    'SELECT pref_value FROM horde_prefs WHERE pref_uid = ? AND pref_scope = ? AND pref_name = ?',
+                    ['joe', 'test', 'a']
+                )
+            )
+        );
     }
 
     public function testModifyPreferences()
     {
         $p = new Horde_Prefs(
             'horde',
-            [
-                self::$prefs,
-            ]
+            self::$prefs
         );
         $p['theme'] = "bar\0bie";
         $p->store();
@@ -81,7 +74,7 @@ class Base extends Horde_Test_Case
     {
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
         //self::$db->setLogger($logger);
-        $dir = __DIR__ . '/../../../../../../migration/Horde/Prefs';
+        $dir = __DIR__ . '/../../migration/Horde/Prefs';
         if (!is_dir($dir)) {
             error_reporting(E_ALL & ~E_DEPRECATED);
             $dir = PEAR_Config::singleton()
