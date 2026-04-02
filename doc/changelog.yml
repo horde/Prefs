@@ -9,7 +9,6 @@
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
   notes: |+
-    
 3.0.0alpha6:
   api: 3.0.0alpha1
   state:
@@ -75,6 +74,45 @@
     uri: http://www.horde.org/licenses/lgpl21
   notes: |
     [jan] Add Horde_Prefs#getScopeObject().
+3.0.0-beta1:
+  api: 3.0.0-beta1
+  state:
+    release: beta
+    api: beta
+  date: 2026-04-02
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    test: Cover prefs with more unit tests
+    style: php-cs-fixer
+    feat(kolab)!: Remove Kolab driver
+    chore(hordeyml): Remove kolab related dependencies
+    Merge pull request #2 from Schlue/FRAMEWORK_6_0
+    Use short name
+    Fix a Creation of dynamic property issue
+    Development mode for Prefs-3.0.0alpha7
+    Released Prefs-3.0.0alpha6
+    Move optionals to developer dependencies
+    Add JsonSerializable and modern __serialize
+    Tentative return types
+    Typo in exception name
+    Identity PHP 8.1: Fix signatures where bc with 7.4 allows it, add #[\ReturnTypeWillChange] otherwise.
+    allow horde-installer-plugin in release pipeline
+    Development mode for Prefs-3.0.0alpha6
+    Released Prefs-3.0.0alpha5
+    fix components.conf in wrong location
+    added files for release workflow
+    Horde_Prefs_Scope::serialize
+    Update metadata and workflows for PHP 8 support
+    Improve horde-prefs support for implicit LDAP and SQL config from horde config
+    Development mode for Prefs-3.0.0alpha5
+    Released Prefs-3.0.0alpha4
+    Add CI job for satis repo update
+    ci.yml and bootstrap.php adapted
+    no errors left
+    no errors left
+    Development mode for Prefs-3.0.0alpha5
 2.8.1:
   api: 2.8.0
   state:
@@ -322,18 +360,6 @@
     uri: http://www.horde.org/licenses/lgpl21
   notes: |
     [jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
-2.0.0:
-  api: 1.1.0
-  state:
-    release: stable
-    api: stable
-  date: 2012-10-30
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 5.
-    [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
 2.0.0beta1:
   api: 1.1.0
   state:
@@ -357,6 +383,18 @@
   notes: |
     First alpha release for Horde 5.
     [mms] Use new Horde_Mail API.
+2.0.0:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-10-30
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First stable release for Horde 5.
+    [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
 1.1.9:
   api: 1.1.0
   state:
@@ -471,40 +509,6 @@
     [gwr] Added a script for exporting/importing preferences from/to a backend.
     [gwr] Added support for listing the scopes in some storage backends.
     [gwr] Fixed the driver for the Kolab IMAP backend.
-1.0.0:
-  api: 1.0.0
-  state:
-    release: stable
-    api: stable
-  date: 2011-04-06
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 4.
-1.0.0RC2:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-29
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Second release candidate for Horde 4.
-1.0.0RC1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-22
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First release candidate for Horde 4.
-    [mjr] Fix IMSP driver.
 1.0.0beta1:
   api: 1.0.0
   state:
@@ -534,6 +538,40 @@
     Remove dependency on horde/Core.
     Use Horde_Db as backend for Sql driver.
     Moved UI code to horde/Core.
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    Second release candidate for Horde 4.
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First release candidate for Horde 4.
+    [mjr] Fix IMSP driver.
+1.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-04-06
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First stable release for Horde 4.
 0.0.3:
   api: 0.0.3
   state:

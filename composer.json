@@ -1,8 +1,7 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/prefs",
     "description": "User preferences library",
-    "type": "library",
+    "type": "horde-library",
     "homepage": "https://www.horde.org/libraries/Horde_Prefs",
     "license": "LGPL-2.1-only",
     "authors": [
@@ -22,14 +21,13 @@
             "role": "lead"
         }
     ],
-    "time": "2022-10-08",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://horde-satis.maintaina.com"
-        }
+    "keywords": [
+        "preferences"
     ],
+    "time": "2026-04-02",
+    "repositories": [],
     "require": {
+        "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || ^3 || ^2",
         "php": "^7.4 || ^8",
         "horde/exception": "^3 || dev-FRAMEWORK_6_0",
         "horde/mail": "^3 || dev-FRAMEWORK_6_0",
@@ -65,15 +63,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Horde\\Prefs\\Unit\\": "test/unit/",
-            "Horde\\Prefs\\Integration\\": "test/integration/"
-        },
-        "psr-0": {
-            "": "test/Unnamespaced/"
-        },
-        "classmap": [
-            "test/Stub/"
-        ]
+            "Horde\\Prefs\\Test\\": "test/"
+        }
     },
     "bin": [
         "bin/horde-prefs"
@@ -81,6 +72,11 @@
     "config": {
         "allow-plugins": {
             "horde/horde-installer-plugin": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-FRAMEWORK_6_0": "3.x-dev"
         }
     }
 }
