@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -26,7 +27,7 @@ class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage_Base
      */
     protected $_imsp;
 
-    public function __construct($user, array $params = array())
+    public function __construct($user, array $params = [])
     {
         if (empty($params['imsp'])) {
             throw new InvalidArgumentException('Missing required imsp parameter.');

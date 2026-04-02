@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -10,11 +11,13 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
  */
+
 namespace Horde\Prefs\Unit;
+
 use PHPUnit\Framework\TestCase;
-use \Horde_Prefs_Identity;
-use \Horde_Prefs;
-use \Horde_Prefs_Stub_Storage;
+use Horde_Prefs_Identity;
+use Horde_Prefs;
+use Horde_Prefs_Stub_Storage;
 
 /**
  * Test the Identity object.
@@ -25,6 +28,7 @@ use \Horde_Prefs_Stub_Storage;
  * @internal
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
+ * @coversNothing
  */
 class IdentityTest extends TestCase
 {
@@ -34,12 +38,13 @@ class IdentityTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->identity = new Horde_Prefs_Identity(array(
+        $this->identity = new Horde_Prefs_Identity([
             'prefs' => new Horde_Prefs(
-                'foo', new Horde_Prefs_Stub_Storage('foo')
+                'foo',
+                new Horde_Prefs_Stub_Storage('foo')
             ),
-            'user' => 'foo'
-        ));
+            'user' => 'foo',
+        ]);
     }
 
     /**
@@ -48,7 +53,7 @@ class IdentityTest extends TestCase
     {
         $this->assertEquals(
             0,
-            $this->identity->add(array())
+            $this->identity->add([])
         );
     }
 
@@ -56,7 +61,7 @@ class IdentityTest extends TestCase
      */
     public function testIdentityGet()
     {
-        $this->identity->add(array());
+        $this->identity->add([]);
 
         $this->assertIsArray($this->identity->get(0));
         $this->assertNull($this->identity->get(1));
@@ -66,10 +71,10 @@ class IdentityTest extends TestCase
      */
     public function testIdentityDelete()
     {
-        $this->identity->add(array());
+        $this->identity->add([]);
 
         $this->assertEquals(
-            array(),
+            [],
             $this->identity->delete(0)
         );
 
@@ -80,7 +85,7 @@ class IdentityTest extends TestCase
      */
     public function testArrayAccessExists()
     {
-        $this->identity->add(array());
+        $this->identity->add([]);
 
         $this->assertTrue(isset($this->identity[0]));
         $this->assertFalse(isset($this->identity[1]));
@@ -90,7 +95,7 @@ class IdentityTest extends TestCase
      */
     public function testArrayAccessGet()
     {
-        $this->identity->add(array());
+        $this->identity->add([]);
 
         $this->assertIsArray($this->identity[0]);
         $this->assertNull($this->identity[1]);
@@ -100,7 +105,7 @@ class IdentityTest extends TestCase
      */
     public function testArrayAccessUnset()
     {
-        $this->identity->add(array());
+        $this->identity->add([]);
 
         $this->assertIsArray($this->identity[0]);
 
@@ -114,7 +119,7 @@ class IdentityTest extends TestCase
     public function testCountable()
     {
         $this->assertEquals(0, count($this->identity));
-        $this->identity->add(array());
+        $this->identity->add([]);
         $this->assertEquals(1, count($this->identity));
     }
 
@@ -122,7 +127,7 @@ class IdentityTest extends TestCase
      */
     public function testIterator()
     {
-        $this->identity->add(array());
+        $this->identity->add([]);
         $this->assertEquals(1, count(iterator_to_array($this->identity)));
     }
 

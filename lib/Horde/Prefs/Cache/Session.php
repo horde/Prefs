@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,7 +31,7 @@ class Horde_Prefs_Cache_Session extends Horde_Prefs_Cache_Base
 
     /**
      */
-    public function __construct($user, array $params = array())
+    public function __construct($user, array $params = [])
     {
         parent::__construct($user, $params);
 
@@ -41,9 +42,8 @@ class Horde_Prefs_Cache_Session extends Horde_Prefs_Cache_Base
      */
     public function get($scope)
     {
-        return isset($_SESSION[$this->_key][$scope])
-            ? $_SESSION[$this->_key][$scope]
-            : false;
+        return $_SESSION[$this->_key][$scope]
+            ?? false;
     }
 
     /**

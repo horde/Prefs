@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2026 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -8,15 +9,17 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
+
 namespace Horde\Prefs\Unit\Storage\Sql;
+
 use Horde_Test_Case;
-use \Horde_Log_Logger;
-use \Horde_Log_Handler_Cli;
-use \Horde_Db_Migration_Migrator;
-use \Horde_Db_Value_Binary;
-use \Horde_Prefs_Storage_Sql;
-use \Horde_Prefs;
-use \Horde_Prefs_Stub_Storage;
+use Horde_Log_Logger;
+use Horde_Log_Handler_Cli;
+use Horde_Db_Migration_Migrator;
+use Horde_Db_Value_Binary;
+use Horde_Prefs_Storage_Sql;
+use Horde_Prefs;
+use Horde_Prefs_Stub_Storage;
 
 class Base extends Horde_Test_Case
 {
@@ -30,13 +33,13 @@ class Base extends Horde_Test_Case
 
     public function testCreatePreferences()
     {
-        if (class_exists('Horde_Db_Adapter_Pdo_Sqlite')){
+        if (class_exists('Horde_Db_Adapter_Pdo_Sqlite')) {
             $p = new Horde_Prefs(
                 'test',
-                array(
+                [
                     self::$prefs,
-                    new Horde_Prefs_Stub_Storage('test')
-                )
+                    new Horde_Prefs_Stub_Storage('test'),
+                ]
             );
             $p['a'] = 'c';
             $p->store();
@@ -44,29 +47,33 @@ class Base extends Horde_Test_Case
                 1,
                 self::$db->selectValue(
                     'SELECT COUNT(*) FROM horde_prefs WHERE pref_scope = ?',
-                    array('test'))
+                    ['test']
+                )
             );
         } else {
-        	$this->markTestSkipped('DB library not found.'); 
+            $this->markTestSkipped('DB library not found.');
         }
-        
+
     }
 
     public function testModifyPreferences()
     {
         $p = new Horde_Prefs(
             'horde',
-            array(
+            [
                 self::$prefs,
-            )
+            ]
         );
         $p['theme'] = "bar\0bie";
         $p->store();
         $this->assertEquals(
             "bar\0bie",
             $this->_readValue(
-                self::$db->selectValue('SELECT pref_value FROM horde_prefs WHERE pref_uid = ? AND pref_scope = ? AND pref_name = ?',
-                                       array('joe', 'horde', 'theme')))
+                self::$db->selectValue(
+                    'SELECT pref_value FROM horde_prefs WHERE pref_uid = ? AND pref_scope = ? AND pref_name = ?',
+                    ['joe', 'horde', 'theme']
+                )
+            )
         );
     }
 
@@ -85,15 +92,16 @@ class Base extends Horde_Test_Case
         self::$migrator = new Horde_Db_Migration_Migrator(
             self::$db,
             null,//$logger,
-            array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_prefs_schema_info'));
+            ['migrationsPath' => $dir,
+                'schemaTableName' => 'horde_prefs_schema_info']
+        );
         self::$migrator->up();
         self::$db->insert(
             'INSERT INTO horde_prefs (pref_uid, pref_scope, pref_name, pref_value) VALUES (?, ?, ?, ?)',
-            array('joe', 'horde', 'theme', new Horde_Db_Value_Binary('silver'))
+            ['joe', 'horde', 'theme', new Horde_Db_Value_Binary('silver')]
         );
 
-        self::$prefs = new Horde_Prefs_Storage_Sql('joe', array('db' => self::$db));
+        self::$prefs = new Horde_Prefs_Storage_Sql('joe', ['db' => self::$db]);
     }
 
     public static function tearDownAfterClass(): void

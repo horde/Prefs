@@ -1,20 +1,24 @@
 <?php
+
 /**
  * Prepare the test setup.
  */
+
 namespace Horde\Prefs\Unit\Storage\Sql;
+
 use Horde_Prefs_Test_Sql_Base;
 
 require_once __DIR__ . '/Base.php';
 
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
  * @package    Prefs
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @coversNothing
  */
 class Oci8Test extends Base
 {
@@ -24,8 +28,10 @@ class Oci8Test extends Base
             self::$reason = 'No oci8 extension';
             return;
         }
-        $config = self::getConfig('PREFS_SQL_OCI8_TEST_CONFIG',
-                                  __DIR__ . '/../../..');
+        $config = self::getConfig(
+            'PREFS_SQL_OCI8_TEST_CONFIG',
+            __DIR__ . '/../../..'
+        );
         if ($config && !empty($config['prefs']['sql']['oci8'])) {
             self::$db = new Horde_Db_Adapter_Oci8($config['prefs']['sql']['oci8']);
             parent::setUpBeforeClass();
@@ -38,10 +44,10 @@ class Oci8Test extends Base
     {
         $p = new Horde_Prefs(
             'test',
-            array(
+            [
                 self::$prefs,
-                new Horde_Prefs_Stub_Storage('test')
-            )
+                new Horde_Prefs_Stub_Storage('test'),
+            ]
         );
         $value = str_repeat('x', 4001);
         $p['a'] = $value;
@@ -51,7 +57,7 @@ class Oci8Test extends Base
             $this->_readValue(
                 self::$db->selectValue(
                     'SELECT pref_value FROM horde_prefs WHERE pref_uid = ? AND pref_scope = ? AND pref_name = ?',
-                    array('joe', 'test', 'a')
+                    ['joe', 'test', 'a']
                 )
             )
         );

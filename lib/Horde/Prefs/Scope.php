@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -41,7 +41,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
      *
      * @var array
      */
-    protected $_dirty = array();
+    protected $_dirty = [];
 
     /**
      * Preferences list.  Each preference has the following format:
@@ -60,7 +60,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
      *
      * @var array
      */
-    protected $_prefs = array();
+    protected $_prefs = [];
 
     /**
      * Constructor.
@@ -114,7 +114,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
                 $this->_toInternal($pref, $p);
             }
         } else {
-            $this->_toInternal($pref, array('v' => $val));
+            $this->_toInternal($pref, ['v' => $val]);
         }
     }
 
@@ -201,7 +201,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
     public function getDefault($pref)
     {
         return ($p = $this->_fromInternal($pref))
-            ? (isset($p['d']) ? $p['d'] : $p['v'])
+            ? ($p['d'] ?? $p['v'])
             : null;
     }
 
@@ -255,7 +255,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
 
         return is_array($this->_prefs[$pref])
             ? $this->_prefs[$pref]
-            : array('v' => $this->_prefs[$pref]);
+            : ['v' => $this->_prefs[$pref]];
     }
 
     /**
@@ -277,7 +277,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
 
     /**
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->_fromInternal($this->key());
@@ -285,7 +285,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
 
     /**
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function key()
     {
         return key($this->_prefs);
@@ -293,7 +293,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
 
     /**
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function next()
     {
         return next($this->_prefs);
@@ -301,7 +301,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
 
     /**
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         return reset($this->_prefs);
@@ -309,7 +309,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
 
     /**
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function valid()
     {
         return !is_null(key($this->_prefs));
@@ -328,7 +328,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
     {
         return [
             $this->scope,
-            $this->_prefs
+            $this->_prefs,
         ];
     }
 
@@ -340,10 +340,11 @@ class Horde_Prefs_Scope implements Iterator, Serializable, JsonSerializable
     }
     public function __unserialize(array $data): void
     {
-        list($this->scope, $this->_prefs) = $data;
+        [$this->scope, $this->_prefs] = $data;
     }
 
-    public function jsonSerialize(): string {
+    public function jsonSerialize(): string
+    {
         try {
             $ret = json_encode(
                 $this->__serialize(),

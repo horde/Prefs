@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -20,15 +21,13 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
  */
-class Horde_Prefs_Storage_Mongo
-extends Horde_Prefs_Storage_Base
-implements Horde_Mongo_Collection_Index
+class Horde_Prefs_Storage_Mongo extends Horde_Prefs_Storage_Base implements Horde_Mongo_Collection_Index
 {
     /* Field names. */
-    const UID = 'uid';
-    const SCOPE = 'scope';
-    const NAME = 'name';
-    const VALUE = 'value';
+    public const UID = 'uid';
+    public const SCOPE = 'scope';
+    public const NAME = 'name';
+    public const VALUE = 'value';
 
     /**
      * The MongoDB Collection object for the cache data.
@@ -42,14 +41,14 @@ implements Horde_Mongo_Collection_Index
      *
      * @var array
      */
-    protected $_indices = array(
-        'index_scope' => array(
-            self::SCOPE => 1
-        ),
-        'index_uid' => array(
-            self::UID => 1
-        )
-    );
+    protected $_indices = [
+        'index_scope' => [
+            self::SCOPE => 1,
+        ],
+        'index_uid' => [
+            self::UID => 1,
+        ],
+    ];
 
     /**
      * Constructor.
@@ -61,15 +60,15 @@ implements Horde_Mongo_Collection_Index
      *   - mongo_db: (Horde_Mongo_Client) [REQUIRED] A MongoDB client object.
      * </pre>
      */
-    public function __construct($user, array $params = array())
+    public function __construct($user, array $params = [])
     {
         if (!isset($params['mongo_db'])) {
             throw new InvalidArgumentException('Missing mongo_db parameter.');
         }
 
-        parent::__construct($user, array_merge(array(
-            'collection' => 'horde_prefs'
-        ), $params));
+        parent::__construct($user, array_merge([
+            'collection' => 'horde_prefs',
+        ], $params));
 
         $this->_db = $this->_params['mongo_db']->selectCollection(null, $this->_params['collection']);
     }
@@ -79,13 +78,13 @@ implements Horde_Mongo_Collection_Index
     public function get($scope_ob)
     {
         try {
-            $res = $this->_db->find(array(
+            $res = $this->_db->find([
                 self::SCOPE => $scope_ob->scope,
-                self::UID => $this->_params['user']
-            ), array(
+                self::UID => $this->_params['user'],
+            ], [
                 self::NAME => true,
-                self::VALUE => true
-            ));
+                self::VALUE => true,
+            ]);
         } catch (MongoException $e) {
             throw new Horde_Prefs_Exception($e);
         }
@@ -107,21 +106,21 @@ implements Horde_Mongo_Collection_Index
             if (is_null($value)) {
                 $this->remove($scope_ob->scope, $name);
             } else {
-                $query = array(
+                $query = [
                     self::NAME => $name,
                     self::SCOPE => $scope_ob->scope,
-                    self::UID => $this->_params['user']
-                );
+                    self::UID => $this->_params['user'],
+                ];
 
                 try {
                     $this->_db->update(
                         $query,
-                        array_merge($query, array(
-                            self::VALUE => new MongoBinData($value, MongoBinData::BYTE_ARRAY)
-                        )),
-                        array(
-                            'upsert' => true
-                        )
+                        array_merge($query, [
+                            self::VALUE => new MongoBinData($value, MongoBinData::BYTE_ARRAY),
+                        ]),
+                        [
+                            'upsert' => true,
+                        ]
                     );
                 } catch (MongoException $e) {
                     throw new Horde_Prefs_Exception($e);
@@ -134,9 +133,9 @@ implements Horde_Mongo_Collection_Index
      */
     public function remove($scope = null, $pref = null)
     {
-        $query = array(
-            self::UID => $this->_params['user']
-        );
+        $query = [
+            self::UID => $this->_params['user'],
+        ];
 
         if (!is_null($scope)) {
             $query[self::SCOPE] = $scope;

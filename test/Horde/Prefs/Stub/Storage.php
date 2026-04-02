@@ -1,8 +1,9 @@
 <?php
+
 /**
  * Stub storage driver for the preferences system.
  *
- * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -20,20 +21,16 @@ class Horde_Prefs_Stub_Storage extends Horde_Prefs_Storage_Base
     {
         /** Provide dummy pref */
         $scope_ob->set('a', 'b');
-        $scope_ob->set('identities', array('v' => array()));
+        $scope_ob->set('identities', ['v' => []]);
         return $scope_ob;
     }
 
     /**
      */
-    public function store($scope_ob)
-    {
-    }
+    public function store($scope_ob) {}
 
     /**
      */
-    public function remove($scope = null, $pref = null)
-    {
-    }
+    public function remove($scope = null, $pref = null) {}
 
 }

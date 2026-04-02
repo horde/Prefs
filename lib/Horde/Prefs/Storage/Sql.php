@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -42,7 +43,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($user, array $params = array())
+    public function __construct($user, array $params = [])
     {
         if (!isset($params['db'])) {
             throw new InvalidArgumentException('Missing db parameter.');
@@ -50,9 +51,9 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         $this->_db = $params['db'];
         unset($params['db']);
 
-        $params = array_merge(array(
-            'table' => 'horde_prefs'
-        ), $params);
+        $params = array_merge([
+            'table' => 'horde_prefs',
+        ], $params);
 
         parent::__construct($user, $params);
     }
@@ -72,10 +73,10 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
     public function get($scope_ob)
     {
         $charset = $this->_db->getOption('charset');
-        $query = 'SELECT pref_name, pref_value FROM ' .
-            $this->_params['table'] . ' ' .
-            'WHERE pref_uid = ? AND pref_scope = ?';
-        $values = array($this->_params['user'], $scope_ob->scope);
+        $query = 'SELECT pref_name, pref_value FROM '
+            . $this->_params['table'] . ' '
+            . 'WHERE pref_uid = ? AND pref_scope = ?';
+        $values = [$this->_params['user'], $scope_ob->scope];
 
         try {
             $result = $this->_db->select($query, $values);
@@ -111,12 +112,12 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
             if (is_null($value)) {
                 $this->remove($scope_ob->scope, $name);
             } else {
-                $values = array($this->_params['user'], $name, $scope_ob->scope);
+                $values = [$this->_params['user'], $name, $scope_ob->scope];
 
                 // Does a row already exist for this preference?
-                $query = 'SELECT 1 FROM ' . $this->_params['table'] .
-                    ' WHERE pref_uid = ? AND pref_name = ?' .
-                    ' AND pref_scope = ?';
+                $query = 'SELECT 1 FROM ' . $this->_params['table']
+                    . ' WHERE pref_uid = ? AND pref_name = ?'
+                    . ' AND pref_scope = ?';
 
                 try {
                     $check = $this->_db->selectValue($query, $values);
@@ -130,12 +131,12 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
 
                 if (empty($check)) {
                     // Insert a new row.
-                    $values = array(
+                    $values = [
                         'pref_uid' => $this->_params['user'],
                         'pref_scope' => $scope_ob->scope,
                         'pref_name' => $name,
-                        'pref_value' => $value
-                    );
+                        'pref_value' => $value,
+                    ];
 
                     try {
                         $this->_db->insertBlob($this->_params['table'], $values, null, true);
@@ -147,11 +148,11 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                     try {
                         $this->_db->updateBlob(
                             $this->_params['table'],
-                            array('pref_value' => $value),
-                            array(
+                            ['pref_value' => $value],
+                            [
                                 'pref_uid = ? AND pref_name = ? AND pref_scope = ?',
-                                array($this->_params['user'], $name, $scope_ob->scope)
-                            )
+                                [$this->_params['user'], $name, $scope_ob->scope],
+                            ]
                         );
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_Prefs_Exception($e);
@@ -165,9 +166,9 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
      */
     public function remove($scope = null, $pref = null)
     {
-        $query = 'DELETE FROM ' . $this->_params['table'] .
-                 ' WHERE pref_uid = ?';
-        $values = array($this->_params['user']);
+        $query = 'DELETE FROM ' . $this->_params['table']
+                 . ' WHERE pref_uid = ?';
+        $values = [$this->_params['user']];
 
         if (!is_null($scope)) {
             $query .= ' AND pref_scope = ?';

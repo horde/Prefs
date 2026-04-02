@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,20 +29,20 @@ class Horde_Prefs_Cache_HordeCache extends Horde_Prefs_Cache_Base
      *   - cache: (Horde_Cache) [REQUIRED] Cache object.
      *   - prefix: (string) Cache prefix.
      */
-    public function __construct($user, array $params = array())
+    public function __construct($user, array $params = [])
     {
         if (!isset($params['cache'])) {
             throw new InvalidArgumentException('Missing cache parameter.');
         }
 
-        parent::__construct($user, array_merge(array(
-            'prefix' => ''
-        ), $params));
+        parent::__construct($user, array_merge([
+            'prefix' => '',
+        ], $params));
 
-        $this->_params['cprefix'] = implode('|', array(
+        $this->_params['cprefix'] = implode('|', [
             $this->_params['user'],
-            $this->_params['prefix']
-        ));
+            $this->_params['prefix'],
+        ]);
     }
 
     /**

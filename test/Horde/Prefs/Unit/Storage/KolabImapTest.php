@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -10,7 +11,9 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
+
 namespace Horde\Prefs\Unit\Storage;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,6 +23,7 @@ use PHPUnit\Framework\TestCase;
  * @package  Prefs
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @coversNothing
  */
 class KolabImapTest extends TestCase
 {
@@ -28,7 +32,7 @@ class KolabImapTest extends TestCase
         if (!class_exists('Horde_Kolab_Storage_Factory')) {
             $this->markTestSkipped('Horde_Kolab_Storage package is missing');
         }
-        $_SESSION = array();
+        $_SESSION = [];
     }
 
     /**
@@ -42,7 +46,8 @@ class KolabImapTest extends TestCase
     public function testConstruction()
     {
         $b = new Horde_Prefs_Storage_KolabImap(
-            'nobody', array('kolab' => $this->_createDefaultStorage())
+            'nobody',
+            ['kolab' => $this->_createDefaultStorage()]
         );
     }
 
@@ -59,7 +64,8 @@ class KolabImapTest extends TestCase
         $a = new Horde_Prefs(
             'horde',
             new Horde_Prefs_Storage_KolabImap(
-                'nobody', array('kolab' => $this->_createDefaultStorage())
+                'nobody',
+                ['kolab' => $this->_createDefaultStorage()]
             )
         );
         $this->assertEquals('silver', $a['theme']);
@@ -70,12 +76,13 @@ class KolabImapTest extends TestCase
         $storage = $this->_createStorage();
         $p = new Horde_Prefs(
             'test@example.com',
-            array(
+            [
                 new Horde_Prefs_Storage_KolabImap(
-                    'test@example.com', array('kolab' => $storage)
+                    'test@example.com',
+                    ['kolab' => $storage]
                 ),
-                new Horde_Prefs_Stub_Storage('test')
-            )
+                new Horde_Prefs_Stub_Storage('test'),
+            ]
         );
         $p['a'] = 'c';
         $p->store();
@@ -93,17 +100,19 @@ class KolabImapTest extends TestCase
         $storage = $this->_createStorage();
         $p = new Horde_Prefs(
             'test',
-            array(
+            [
                 new Horde_Prefs_Storage_KolabImap(
-                    'test@example.com', array('kolab' => $storage)
+                    'test@example.com',
+                    ['kolab' => $storage]
                 ),
-                new Horde_Prefs_Stub_Storage('test')
-            )
+                new Horde_Prefs_Stub_Storage('test'),
+            ]
         );
         $p['a'] = 'c';
         $p->store();
         $this->assertEquals(
-            1, count($storage->getData('INBOX/Preferences')->getObjects())
+            1,
+            count($storage->getData('INBOX/Preferences')->getObjects())
         );
         $p->cleanup(true);
     }
@@ -113,18 +122,20 @@ class KolabImapTest extends TestCase
         $storage = $this->_createDefaultStorage();
         $p = new Horde_Prefs(
             'horde',
-            array(
+            [
                 new Horde_Prefs_Storage_KolabImap(
-                    'test@example.com', array('kolab' => $storage)
-                )
-            )
+                    'test@example.com',
+                    ['kolab' => $storage]
+                ),
+            ]
         );
         $p['theme'] = 'barbie';
         $p->store();
         $objects = $storage->getData('INBOX/Preferences')->getObjects();
         $object = array_pop($objects);
         $this->assertContains(
-            'theme:YmFyYmll', $object['pref']
+            'theme:YmFyYmll',
+            $object['pref']
         );
         $p->cleanup(true);
     }
@@ -132,39 +143,39 @@ class KolabImapTest extends TestCase
     private function _createDefaultStorage()
     {
         return $this->_createStorage(
-            array(
-                'user/test/Preferences' => array(
+            [
+                'user/test/Preferences' => [
                     't' => 'h-prefs.default',
-                    'm' => array(
-                        1 => array('file' => __DIR__ . '/../../fixtures/preferences.1'),
-                    ),
-                )
-            )
+                    'm' => [
+                        1 => ['file' => __DIR__ . '/../../fixtures/preferences.1'],
+                    ],
+                ],
+            ]
         );
     }
 
-    private function _createStorage($data = array())
+    private function _createStorage($data = [])
     {
         $factory = new Horde_Kolab_Storage_Factory(
-            array(
+            [
                 'driver' => 'mock',
-                'params' => array(
+                'params' => [
                     'data'   => array_merge(
-                        array(
+                        [
                             'format' => 'brief',
                             'user/test' => null,
-                        ),
+                        ],
                         $data
                     ),
-                    'username' => 'test@example.com'
-                ),
-                'queryset' => array(
-                    'list' => array('queryset' => 'horde'),
-                    'data' => array('queryset' => 'horde'),
-                ),
+                    'username' => 'test@example.com',
+                ],
+                'queryset' => [
+                    'list' => ['queryset' => 'horde'],
+                    'data' => ['queryset' => 'horde'],
+                ],
                 'cache'  => new Horde_Cache(new Horde_Cache_Storage_Mock()),
                 'logger' => $this->getMock('Horde_Log_Logger'),
-            )
+            ]
         );
         return $factory->create();
     }

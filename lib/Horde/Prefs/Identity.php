@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -20,15 +21,14 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
  */
-class Horde_Prefs_Identity
-implements ArrayAccess, Countable, IteratorAggregate
+class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * Array containing all the user's identities.
      *
      * @var array
      */
-    protected $_identities = array();
+    protected $_identities = [];
 
     /**
      * A pointer to the user's standard identity.
@@ -46,26 +46,26 @@ implements ArrayAccess, Countable, IteratorAggregate
      */
     protected $_user = null;
 
-   /**
-     * Array containing all the names.
-     *
-     * @var array
-     */
-    protected $_names = []; 
+    /**
+      * Array containing all the names.
+      *
+      * @var array
+      */
+    protected $_names = [];
 
     /**
      * Preference names.
      *
      * @var array
      */
-    protected $_prefnames = array(
+    protected $_prefnames = [
         'default_identity' => 'default_identity',
         'from_addr' => 'from_addr',
         'fullname' => 'fullname',
         'id' => 'id',
         'identities' => 'identities',
-        'properties' => array('id', 'fullname', 'from_addr')
-    );
+        'properties' => ['id', 'fullname', 'from_addr'],
+    ];
 
     /**
      * The prefs object that this Identity points to.
@@ -95,7 +95,7 @@ implements ArrayAccess, Countable, IteratorAggregate
      *                 DEFAULT: array('from_addr', 'fullname', 'id')
      *   - user: (string) [REQUIRED] The user whose prefs we are handling.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         foreach (array_keys($this->_prefnames) as $val) {
             if (isset($params[$val])) {
@@ -126,7 +126,7 @@ implements ArrayAccess, Countable, IteratorAggregate
                 $identity['id'] = Horde_Prefs_Translation::t("Default Identity");
             }
 
-            $this->_identities = array($identity);
+            $this->_identities = [$identity];
             $this->verify(0);
         }
     }
@@ -147,7 +147,7 @@ implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return integer  The pointer to the created identity
      */
-    public function add($identity = array())
+    public function add($identity = [])
     {
         $this->_identities[] = $identity;
         return count($this->_identities) - 1;
@@ -167,9 +167,8 @@ implements ArrayAccess, Countable, IteratorAggregate
             $identity = $this->_default;
         }
 
-        return isset($this->_identities[$identity])
-            ? $this->_identities[$identity]
-            : null;
+        return $this->_identities[$identity]
+            ?? null;
     }
 
     /**
@@ -253,7 +252,7 @@ implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getAll($key)
     {
-        $list = array();
+        $list = [];
 
         foreach (array_keys($this->_identities) as $identity) {
             $list[$identity] = $this->getValue($key, $identity);
@@ -317,8 +316,8 @@ implements ArrayAccess, Countable, IteratorAggregate
         $list = $this->getAll($key);
 
         foreach ($list as $valueB) {
-            if (!empty($valueB) &&
-                strpos(Horde_String::lower($value), Horde_String::lower($valueB)) !== false) {
+            if (!empty($valueB)
+                && strpos(Horde_String::lower($value), Horde_String::lower($valueB)) !== false) {
                 return true;
             }
         }
@@ -347,9 +346,9 @@ implements ArrayAccess, Countable, IteratorAggregate
         $ob = new Horde_Mail_Rfc822_Address($this->getValue($this->_prefnames['from_addr'], $identity));
         try {
             $rfc822 = new Horde_Mail_Rfc822();
-            $rfc822->parseAddressList($ob, array(
-                'validate' => true
-            ));
+            $rfc822->parseAddressList($ob, [
+                'validate' => true,
+            ]);
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_Prefs_Exception(sprintf(Horde_Prefs_Translation::t("\"%s\" is not a valid email address."), strval($ob)));
         }
@@ -422,7 +421,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->_identities[$offset]);
@@ -431,7 +430,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->get($offset);
@@ -440,7 +439,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         // $value is ignored.
@@ -450,7 +449,7 @@ implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @since 2.7.0
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $this->delete($offset);

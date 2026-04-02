@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -27,7 +28,7 @@ class Horde_Prefs_CategoryManager
     {
         $string = $GLOBALS['prefs']->getValue('categories');
         if (empty($string)) {
-            return array();
+            return [];
         }
 
         $categories = explode('|', $string);
@@ -71,8 +72,8 @@ class Horde_Prefs_CategoryManager
         foreach ($categories as $name) {
             $name_html = htmlspecialchars($name);
             $html .= '<option value="' . $name_html
-                . '" style="background:' . (isset($colors[$name]) ? $colors[$name] : '#fff')
-                . ';color:' . (isset($fgcolors[$name]) ? $fgcolors[$name] : '#000') . '"'
+                . '" style="background:' . ($colors[$name] ?? '#fff')
+                . ';color:' . ($fgcolors[$name] ?? '#000') . '"'
                 . ($name === $current ? ' selected="selected">' : '>')
                 . $name_html . '</option>';
         }
@@ -90,27 +91,27 @@ class Horde_Prefs_CategoryManager
 
         return <<<JAVASCRIPT
 
-<script type="text/javascript">
-<!--
-function checkCategory()
-{
-    if (document.${formname}['$elementname'].value == '*new*') {
-        var category = window.prompt('$prompt', '');
-        if (category != null && category != '') {
-            document.$formname.new_category.value = category;
-        } else {
-            window.alert('$error');
-            return false;
-        }
-    } else if (document.${formname}['$elementname'].value.indexOf('*new*') != -1) {
-        document.$formname.new_category.value = document.${formname}['$elementname'].value.substr(5, document.${formname}['$elementname'].value.length);
-    }
+            <script type="text/javascript">
+            <!--
+            function checkCategory()
+            {
+                if (document.{$formname}['$elementname'].value == '*new*') {
+                    var category = window.prompt('$prompt', '');
+                    if (category != null && category != '') {
+                        document.$formname.new_category.value = category;
+                    } else {
+                        window.alert('$error');
+                        return false;
+                    }
+                } else if (document.{$formname}['$elementname'].value.indexOf('*new*') != -1) {
+                    document.$formname.new_category.value = document.{$formname}['$elementname'].value.substr(5, document.{$formname}['$elementname'].value.length);
+                }
 
-    return true;
-}
-//-->
-</script>
-JAVASCRIPT;
+                return true;
+            }
+            //-->
+            </script>
+            JAVASCRIPT;
     }
 
     /**
@@ -184,7 +185,7 @@ JAVASCRIPT;
         $pairs = explode('|', $GLOBALS['prefs']->getValue('category_colors'));
         foreach ($pairs as $pair) {
             if (!empty($pair)) {
-                list($category, $color) = explode(':', $pair);
+                [$category, $color] = explode(':', $pair);
                 $colors[$category] = $color;
             }
         }
@@ -203,7 +204,7 @@ JAVASCRIPT;
     public static function fgColors()
     {
         $colors = self::colors();
-        $fgcolors = array();
+        $fgcolors = [];
         foreach ($colors as $name => $color) {
             $fgcolors[$name] = Horde_Image::brightness($color) < 128 ? '#f6f6f6' : '#000';
         }
@@ -226,7 +227,7 @@ JAVASCRIPT;
      */
     public static function setColors($colors)
     {
-        $pairs = array();
+        $pairs = [];
         foreach ($colors as $category => $color) {
             if ($color[0] != '#') {
                 $color = '#' . $color;

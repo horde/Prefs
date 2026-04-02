@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -48,7 +49,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($user, array $params = array())
+    public function __construct($user, array $params = [])
     {
         if (!isset($params['ldap'])) {
             throw new InvalidArgumentException('Missing ldap parameter.');
@@ -69,7 +70,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
             $search = $this->_ldap->search(
                 $this->_prefsDN,
                 Horde_Ldap_Filter::create('objectclass', 'equals', 'hordePerson'),
-                array('attributes' => array('dn'), 'scope' => 'sub')
+                ['attributes' => ['dn'], 'scope' => 'sub']
             );
 
             if ($search->count() == 1) {
@@ -93,7 +94,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
         $field = Horde_String::lower($scope_ob->scope . 'Prefs');
 
         try {
-            $prefs = $this->_ldap->getEntry($this->_prefsDN, array($field));
+            $prefs = $this->_ldap->getEntry($this->_prefsDN, [$field]);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Prefs_Exception($e);
         }
@@ -103,7 +104,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
                 // If the string doesn't contain a colon delimiter, skip it.
                 if (strpos($prefstr, ':') !== false) {
                     // Split the string into its name:value components.
-                    list($name, $value) = explode(':', $prefstr, 2);
+                    [$name, $value] = explode(':', $prefstr, 2);
                     $scope_ob->set($name, base64_decode($value));
                 }
             }
@@ -124,7 +125,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
         $field = Horde_String::lower($scope_ob->scope . 'Prefs');
 
         try {
-            $prefs = $this->_ldap->getEntry($this->_prefsDN, array($field, 'objectclass'));
+            $prefs = $this->_ldap->getEntry($this->_prefsDN, [$field, 'objectclass']);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Prefs_Exception($e);
         }
@@ -134,9 +135,9 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
         // to successfully store LDAP prefs. Check for both of them,
         // and add them if necessary.
         $objectclasses = $prefs->getValue('objectclass', 'all');
-        foreach (array('top', 'hordePerson') as $oc) {
+        foreach (['top', 'hordePerson'] as $oc) {
             if (!in_array($oc, $objectclasses)) {
-                $prefs->add(array('objectClass' => $oc));
+                $prefs->add(['objectClass' => $oc]);
             }
         }
 
@@ -144,10 +145,10 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
         if ($prefs->exists($field)) {
             foreach ($prefs->getValue($field, 'all') as $prefstr) {
                 // Split the string into its name:value components.
-                list($name, $val) = explode(':', $prefstr, 2);
+                [$name, $val] = explode(':', $prefstr, 2);
                 // Delete values of dirty preference names
                 if ($scope_ob->isDirty($name)) {
-                    $prefs->delete(array($field => $prefstr));
+                    $prefs->delete([$field => $prefstr]);
                 }
             }
 
@@ -163,7 +164,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
             $value = $scope_ob->get($name);
             // Null values were deleted above.
             if (!is_null($value)) {
-                $prefs->add(array($field => $name . ':' . base64_encode($value)));
+                $prefs->add([$field => $name . ':' . base64_encode($value)]);
             }
         }
 
@@ -182,7 +183,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
             // Clear all scopes.
             $scopes = $this->listScopes();
         } else {
-            $scopes = array($scope);
+            $scopes = [$scope];
         }
 
         foreach ($scopes as $s) {
@@ -190,21 +191,21 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
             $field = Horde_String::lower($s . 'Prefs');
 
             try {
-                $prefs = $this->_ldap->getEntry($this->_prefsDN, array($field));
+                $prefs = $this->_ldap->getEntry($this->_prefsDN, [$field]);
             } catch (Horde_Ldap_Exception $e) {
                 throw new Horde_Prefs_Exception($e);
             }
 
             if (is_null($pref)) {
                 // Clear entire scope.
-                $prefs->delete(array($field));
+                $prefs->delete([$field]);
             } elseif ($prefs->exists($field)) {
                 // Find preference to clear.
                 foreach ($prefs->getValue($field, 'all') as $prefstr) {
                     // Split the string into its name:value components.
-                    list($name, $val) = explode(':', $prefstr, 2);
+                    [$name, $val] = explode(':', $prefstr, 2);
                     if ($name == $pref) {
-                        $prefs->delete(array($field => $prefstr));
+                        $prefs->delete([$field => $prefstr]);
                     }
                 }
             }
@@ -224,15 +225,15 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
      */
     public function listScopes()
     {
-        $scopes = array();
+        $scopes = [];
         try {
             $prefs = $this->_ldap->search(
                 $this->_prefsDN,
                 Horde_Ldap_Filter::create('objectclass', 'equals', 'hordePerson'),
                 // Attributes associated to objectclass hordePerson.
-                array('attributes' => array('@hordePerson'),
-                      'scope' => 'base',
-                      'attrsonly' => true)
+                ['attributes' => ['@hordePerson'],
+                    'scope' => 'base',
+                    'attrsonly' => true]
             );
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Prefs_Exception($e);
@@ -245,7 +246,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
         foreach ($prefs->shiftEntry()->attributes() as $attr) {
             // Trim off prefs from attribute name to get scope (e.g. hordePrefs
             // -> horde).
-            $scope = str_ireplace("prefs","",$attr);
+            $scope = str_ireplace("prefs", "", $attr);
             // Skip non-prefs attributes like objectclass (no replacement
             // occurred above).
             if ($attr != $scope) {

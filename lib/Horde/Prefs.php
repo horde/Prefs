@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -26,7 +27,7 @@
 class Horde_Prefs implements ArrayAccess
 {
     /* The default scope name. */
-    const DEFAULT_SCOPE = 'horde';
+    public const DEFAULT_SCOPE = 'horde';
 
     /**
      * Caching object.
@@ -40,13 +41,13 @@ class Horde_Prefs implements ArrayAccess
      *
      * @var array
      */
-    protected $_opts = array(
+    protected $_opts = [
         'cache' => null,
         'logger' => null,
         'sizecallback' => null,
         'storage' => null,
-        'user' => ''
-    );
+        'user' => '',
+    ];
 
     /**
      * String containing the name of the current scope. This is used
@@ -63,7 +64,7 @@ class Horde_Prefs implements ArrayAccess
      *
      * @var array
      */
-    protected $_scopes = array();
+    protected $_scopes = [];
 
     /**
      * The storage driver(s).
@@ -92,24 +93,23 @@ class Horde_Prefs implements ArrayAccess
      *        DEFAULT: NONE
      * </pre>
      */
-    public function __construct($scope, $storage = null, array $opts = array())
+    public function __construct($scope, $storage = null, array $opts = [])
     {
         $this->_opts = array_merge($this->_opts, $opts);
 
-        $this->_cache = isset($this->_opts['cache'])
-            ? $this->_opts['cache']
-            : new Horde_Prefs_Cache_Null($this->getUser());
+        $this->_cache = $this->_opts['cache']
+            ?? new Horde_Prefs_Cache_Null($this->getUser());
 
         $this->_scope = $scope;
 
         if (is_null($storage)) {
-            $storage = array(new Horde_Prefs_Storage_Null($this->getUser()));
+            $storage = [new Horde_Prefs_Storage_Null($this->getUser())];
         } elseif (!is_array($storage)) {
-            $storage = array($storage);
+            $storage = [$storage];
         }
         $this->_storage = $storage;
 
-        register_shutdown_function(array($this, 'store'), false);
+        register_shutdown_function([$this, 'store'], false);
     }
 
     /**
@@ -177,12 +177,12 @@ class Horde_Prefs implements ArrayAccess
      */
     public function remove($pref = null)
     {
-        $to_remove = array();
+        $to_remove = [];
 
         if (is_null($pref)) {
             $to_remove[$this->_scope] = array_keys(iterator_to_array($this->_scopes[$this->_scope]));
         } elseif ($scope = $this->_getScope($pref)) {
-            $to_remove[$scope] = array($pref);
+            $to_remove[$scope] = [$pref];
         }
 
         foreach ($to_remove as $key => $val) {
@@ -199,7 +199,8 @@ class Horde_Prefs implements ArrayAccess
                 foreach ($this->_storage as $storage) {
                     try {
                         $storage->remove($key, $prefname);
-                    } catch (Exception $e) {}
+                    } catch (Exception $e) {
+                    }
                 }
             }
 
@@ -207,7 +208,8 @@ class Horde_Prefs implements ArrayAccess
                 foreach ($this->_storage as $storage) {
                     try {
                         $storage->remove($key);
-                    } catch (Exception $e) {}
+                    } catch (Exception $e) {
+                    }
                 }
             }
         }
@@ -252,18 +254,18 @@ class Horde_Prefs implements ArrayAccess
      *                  failure.
      * @throws Horde_Prefs_Exception
      */
-    public function setValue($pref, $val, array $opts = array())
+    public function setValue($pref, $val, array $opts = [])
     {
         /* Exit early if preference doesn't exist or is locked. */
-        if (!($scope = $this->_getScope($pref)) ||
-            (empty($opts['force']) &&
-             $this->_scopes[$scope]->isLocked($pref))) {
+        if (!($scope = $this->_getScope($pref))
+            || (empty($opts['force'])
+             && $this->_scopes[$scope]->isLocked($pref))) {
             return false;
         }
 
         // Check to see if the value exceeds the allowable storage limit.
-        if ($this->_opts['sizecallback'] &&
-            call_user_func($this->_opts['sizecallback'], $pref, strlen($val))) {
+        if ($this->_opts['sizecallback']
+            && call_user_func($this->_opts['sizecallback'], $pref, strlen($val))) {
             return false;
         }
 
@@ -449,12 +451,13 @@ class Horde_Prefs implements ArrayAccess
 
         // Now check the prefs cache for existing values.
         try {
-            if ((($cached = $this->_cache->get($scope)) !== false) &&
-                ($cached instanceof Horde_Prefs_Scope)) {
+            if ((($cached = $this->_cache->get($scope)) !== false)
+                && ($cached instanceof Horde_Prefs_Scope)) {
                 $this->_scopes[$scope] = $cached;
                 return;
             }
-        } catch (Horde_Prefs_Exception $e) {}
+        } catch (Horde_Prefs_Exception $e) {
+        }
 
         $scope_ob = new Horde_Prefs_Scope($scope);
         $scope_ob->init = true;
@@ -513,7 +516,7 @@ class Horde_Prefs implements ArrayAccess
     {
         if ($all) {
             /* Destroy all scopes. */
-            $this->_scopes = array();
+            $this->_scopes = [];
             $scope = null;
         } else {
             unset($this->_scopes[$this->_scope]);
@@ -522,29 +525,30 @@ class Horde_Prefs implements ArrayAccess
 
         try {
             $this->_cache->remove($scope);
-        } catch (Horde_Prefs_Exception $e) {}
+        } catch (Horde_Prefs_Exception $e) {
+        }
     }
 
     /* ArrayAccess methods. */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return !is_null($this->getValue($offset));
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->getValue($offset);
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->setValue($offset, $value);
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $this->remove($offset);

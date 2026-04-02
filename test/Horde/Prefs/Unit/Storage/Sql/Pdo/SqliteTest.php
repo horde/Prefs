@@ -1,21 +1,25 @@
 <?php
+
 /**
  * Prepare the test setup.
  */
+
 namespace Horde\Prefs\Unit\Storage\Sql\Pdo;
+
 use Horde\Prefs\Unit\Storage\Sql\Base as Base;
-use \Horde_Test_Factory_Db;
+use Horde_Test_Factory_Db;
 
 require_once __DIR__ . '/../Base.php';
 
 /**
- * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2026 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
  * @package    Prefs
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @coversNothing
  */
 class SqliteTest extends Base
 {
@@ -26,6 +30,6 @@ class SqliteTest extends Base
         if (class_exists('Horde_Db_Adapter_Pdo_Sqlite')) {
             self::$db = $factory_db->create();
             parent::setUpBeforeClass();
-        } 
+        }
     }
 }
