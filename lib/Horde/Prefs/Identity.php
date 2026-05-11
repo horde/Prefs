@@ -408,7 +408,7 @@ class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getDefaultFromAddress($fullname = false)
     {
-        $ob = new Horde_Mail_Rfc822_Address($this->getFromAddress());
+        $ob = $this->getFromAddress();
         $ob->personal = $fullname
             ? $this->getValue($this->_prefnames['fullname'])
             : null;
