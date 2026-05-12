@@ -105,8 +105,12 @@ class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
         $this->_prefs = $params['prefs'];
         $this->_user = $params['user'];
 
-        if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'])))) {
-            $this->_identities = $this->_prefs->getDefault($this->_prefnames['identities']);
+        $raw = $this->_prefs->getValue($this->_prefnames['identities']);
+        if (is_string($raw) && strlen($raw)) {
+            $result = @unserialize($raw);
+            $this->_identities = is_array($result) ? $result : [];
+        } else {
+            $this->_identities = [];
         }
 
         $this->setDefault($this->_prefs->getValue($this->_prefnames['default_identity']));
@@ -343,7 +347,19 @@ class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
         }
 
         // To verify e-mail, first parse input, than re-parse in verify mode.
-        $ob = new Horde_Mail_Rfc822_Address($this->getValue($this->_prefnames['from_addr'], $identity));
+        $fromAddr = $this->getValue($this->_prefnames['from_addr'], $identity);
+        if (is_array($fromAddr)) {
+            $flat = [];
+            array_walk_recursive($fromAddr, function ($item) use (&$flat) {
+                if (is_string($item) && strlen($item)) {
+                    $flat[] = $item;
+                }
+            });
+            $fromAddr = $flat[0] ?? '';
+        }
+        $fromAddr = is_string($fromAddr) ? $fromAddr : '';
+
+        $ob = new Horde_Mail_Rfc822_Address($fromAddr);
         try {
             $rfc822 = new Horde_Mail_Rfc822();
             $rfc822->parseAddressList($ob, [
@@ -392,6 +408,16 @@ class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
     public function getFromAddress($ident = null)
     {
         $val = $this->getValue($this->_prefnames['from_addr'], $ident);
+        if (is_array($val)) {
+            $flat = [];
+            array_walk_recursive($val, function ($item) use (&$flat) {
+                if (is_string($item) && strlen($item)) {
+                    $flat[] = $item;
+                }
+            });
+            $val = $flat[0] ?? '';
+        }
+        $val = is_string($val) ? $val : '';
         if (!strlen($val)) {
             $val = $this->_user;
         }
@@ -408,7 +434,7 @@ class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getDefaultFromAddress($fullname = false)
     {
-        // We used to clone a fresh object but now we pass the original object - mutating it may have side effects. 
+        // We used to clone a fresh object but now we pass the original object - mutating it may have side effects.
         $ob = $this->getFromAddress();
         $ob->personal = $fullname
             ? $this->getValue($this->_prefnames['fullname'])
