@@ -408,6 +408,7 @@ class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getDefaultFromAddress($fullname = false)
     {
+        // We used to clone a fresh object but now we pass the original object - mutating it may have side effects. 
         $ob = $this->getFromAddress();
         $ob->personal = $fullname
             ? $this->getValue($this->_prefnames['fullname'])
