@@ -1,5 +1,7 @@
 <?php
 
+use Horde\Util\Util;
+
 /**
  * Copyright 2008-2026 Horde LLC (http://www.horde.org/)
  *
@@ -141,7 +143,7 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
             }
         }
 
-        $tmp_file = Horde_Util::getTempFile('PrefsFile', true, $this->_params['directory']);
+        $tmp_file = Util::getTempFile('PrefsFile', true, $this->_params['directory']);
 
         if ((file_put_contents($tmp_file, serialize($this->_fileCache)) === false)
             || (@rename($tmp_file, $this->_fullpath) === false)) {

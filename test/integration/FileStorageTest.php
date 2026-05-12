@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Horde_Prefs_Storage_File;
 use Horde_Util;
+use Horde\Util\Util;
 
 /**
  * Test the file based preferences storage backend.
@@ -54,7 +55,7 @@ class FileStorageTest extends TestCase
 
     public function testConstruction()
     {
-        $b = new Horde_Prefs_Storage_File('nobody', ['directory' => Horde_Util::createTempDir()]);
+        $b = new Horde_Prefs_Storage_File('nobody', ['directory' => Util::createTempDir()]);
         $this->markTestSkipped();
     }
 }

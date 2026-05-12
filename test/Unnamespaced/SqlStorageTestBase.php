@@ -31,10 +31,10 @@ class SqlStorageTestBase extends TestCase
         // The pref must exist before it can be modified
         self::$db->insert(
             'INSERT INTO horde_prefs (pref_uid, pref_scope, pref_name, pref_value) VALUES (?, ?, ?, ?)',
-            ['joe', 'test', 'a', new \Horde_Db_Value_Binary('default')]
+            ['joe', 'test', 'a', new Horde_Db_Value_Binary('default')]
         );
 
-        $p = new \Horde_Prefs(
+        $p = new Horde_Prefs(
             'test',
             self::$prefs
         );
