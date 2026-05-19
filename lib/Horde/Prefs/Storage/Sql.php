@@ -86,7 +86,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         }
 
         foreach ($result as $row) {
-            $name = trim($row['pref_name']);
+            $name = trim((string) $row['pref_name']);
             $value = $columns['pref_value']->binaryToString($row['pref_value']);
             $scope_ob->set($name, Horde_String::convertCharset($value, $charset, 'UTF-8'));
         }
