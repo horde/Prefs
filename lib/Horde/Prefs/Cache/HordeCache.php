@@ -50,7 +50,8 @@ class Horde_Prefs_Cache_HordeCache extends Horde_Prefs_Cache_Base
     public function get($scope)
     {
         return @unserialize(
-            $this->_params['cache']->get($this->_cacheId($scope), 0)
+            $this->_params['cache']->get($this->_cacheId($scope), 0),
+            ['allowed_classes' => ['Horde_Prefs_Scope']]
         );
     }
 

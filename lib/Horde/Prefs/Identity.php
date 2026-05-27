@@ -107,7 +107,7 @@ class Horde_Prefs_Identity implements ArrayAccess, Countable, IteratorAggregate
 
         $raw = $this->_prefs->getValue($this->_prefnames['identities']);
         if (is_string($raw) && strlen($raw)) {
-            $result = @unserialize($raw);
+            $result = @unserialize($raw, ['allowed_classes' => false]);
             $this->_identities = is_array($result) ? $result : [];
         } else {
             $this->_identities = [];

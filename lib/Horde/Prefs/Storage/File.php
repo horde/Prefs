@@ -104,7 +104,7 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
                 return false;
             }
 
-            $this->_fileCache = @unserialize(file_get_contents($this->_fullpath));
+            $this->_fileCache = @unserialize(file_get_contents($this->_fullpath), ['allowed_classes' => false]);
 
             // Check version number. We can call format transformations hooks
             // in the future.
