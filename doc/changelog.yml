@@ -113,6 +113,18 @@
     no errors left
     no errors left
     Development mode for Prefs-3.0.0alpha5
+3.0.0-RC3:
+  api: 3.0.0-RC3
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-28
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    fix(security): restrict unserialize allowed_classes (ZDI-20-1051)
+    chore: Update workflow dependency
 3.0.0-RC2:
   api: 3.0.0-RC2
   state:
