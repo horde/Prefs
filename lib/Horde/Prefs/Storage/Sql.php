@@ -126,7 +126,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                 }
 
                 /* Driver has no support for storing locked status. */
-                $value = Horde_String::convertCharset($value, 'UTF-8', $charset);
+                $value = strval(Horde_String::convertCharset($value, 'UTF-8', $charset));
                 $value = new Horde_Db_Value_Binary($value);
 
                 if (empty($check)) {
