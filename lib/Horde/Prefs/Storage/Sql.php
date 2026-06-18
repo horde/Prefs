@@ -13,6 +13,8 @@
  * @package  Prefs
  */
 
+use Horde\Util\HordeString;
+
 /**
  * Preferences storage implementation for a SQL database.
  *
@@ -125,8 +127,12 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                     throw new Horde_Prefs_Exception($e);
                 }
 
-                /* Driver has no support for storing locked status. */
-                $value = strval(Horde_String::convertCharset($value, 'UTF-8', $charset));
+                /* Driver has no support for storing locked status.
+                 * strval() before charset conversion so non-string scalars
+                 * (e.g. integer 0/1 from checkbox prefs) are normalized
+                 * before reaching the PDO blob layer, which serializes
+                 * string data only. */
+                $value = HordeString::convertCharset(strval($value), 'UTF-8', $charset);
                 $value = new Horde_Db_Value_Binary($value);
 
                 if (empty($check)) {
