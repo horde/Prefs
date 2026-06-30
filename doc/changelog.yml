@@ -1,118 +1,14 @@
 ---
-3.0.0alpha7:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-10-08
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha6:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-10-08
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [rla] Improved PHP 8.1 compatibility.
-    |+
-3.0.0alpha5:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-03-10
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha4:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-10-16
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [rla] Make horde-prefs cli composer-ready and compatible with horde config.
-    |+
-3.0.0alpha3:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-03-13
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha2:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-02-24
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha1:
-  api: 3.0.0alpha1
+3.0.0:
+  api: 3.0.0
   state:
     release: stable
     api: stable
-  date: 2021-02-24
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Add Horde_Prefs#getScopeObject().
-3.0.0-beta1:
-  api: 3.0.0-beta1
-  state:
-    release: beta
-    api: beta
-  date: 2026-04-02
+  date: 2026-06-30
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    test: Cover prefs with more unit tests
-    style: php-cs-fixer
-    feat(kolab)!: Remove Kolab driver
-    chore(hordeyml): Remove kolab related dependencies
-    Merge pull request #2 from Schlue/FRAMEWORK_6_0
-    Use short name
-    Fix a Creation of dynamic property issue
-    Development mode for Prefs-3.0.0alpha7
-    Released Prefs-3.0.0alpha6
-    Move optionals to developer dependencies
-    Add JsonSerializable and modern __serialize
-    Tentative return types
-    Typo in exception name
-    Identity PHP 8.1: Fix signatures where bc with 7.4 allows it, add #[\ReturnTypeWillChange] otherwise.
-    allow horde-installer-plugin in release pipeline
-    Development mode for Prefs-3.0.0alpha6
-    Released Prefs-3.0.0alpha5
-    fix components.conf in wrong location
-    added files for release workflow
-    Horde_Prefs_Scope::serialize
-    Update metadata and workflows for PHP 8 support
-    Improve horde-prefs support for implicit LDAP and SQL config from horde config
-    Development mode for Prefs-3.0.0alpha5
-    Released Prefs-3.0.0alpha4
-    Add CI job for satis repo update
-    ci.yml and bootstrap.php adapted
-    no errors left
-    no errors left
-    Development mode for Prefs-3.0.0alpha5
+  notes: "chore: update CI\nci: install horde-components CI pipeline\nfix(prefs): apply review feedback, strval before charset conversion\nfix(prefs): cast values to string before binary SQL storage"
 3.0.0-RC3:
   api: 3.0.0-RC3
   state:
@@ -122,9 +18,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix(security): restrict unserialize allowed_classes (ZDI-20-1051)
-    chore: Update workflow dependency
+  notes: "fix(security): restrict unserialize allowed_classes (ZDI-20-1051)\nchore: Update workflow dependency"
 3.0.0-RC2:
   api: 3.0.0-RC2
   state:
@@ -134,8 +28,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix: Cast to string before trying to trim
+  notes: 'fix: Cast to string before trying to trim'
 3.0.0-RC1:
   api: 3.0.0-RC1
   state:
@@ -145,12 +38,87 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    Merge pull request #5 from horde/fix/identity-array-typeerror
-    style: php-cs-fixer
-    fix: Harden Horde_Prefs_Identity against unexpected prefs values from backend
-    docs: Clarify a change in behaviour
-    Fix getDefaultFromAddress method implementation
+  notes: "Merge pull request #5 from horde/fix/identity-array-typeerror\nstyle: php-cs-fixer\nfix: Harden Horde_Prefs_Identity against unexpected prefs values from backend\ndocs: Clarify a change in behaviour\nFix getDefaultFromAddress method implementation"
+3.0.0-beta1:
+  api: 3.0.0-beta1
+  state:
+    release: beta
+    api: beta
+  date: 2026-04-02
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "test: Cover prefs with more unit tests\nstyle: php-cs-fixer\nfeat(kolab)!: Remove Kolab driver\nchore(hordeyml): Remove kolab related dependencies\nMerge pull request #2 from Schlue/FRAMEWORK_6_0\nUse short name\nFix a Creation of dynamic property issue\nDevelopment mode for Prefs-3.0.0alpha7\nReleased Prefs-3.0.0alpha6\nMove optionals to developer dependencies\nAdd JsonSerializable and modern __serialize\nTentative return types\nTypo in exception name\nIdentity PHP 8.1: Fix signatures where bc with 7.4 allows it, add #[\\ReturnTypeWillChange] otherwise.\nallow horde-installer-plugin in release pipeline\nDevelopment mode for Prefs-3.0.0alpha6\nReleased Prefs-3.0.0alpha5\nfix components.conf in wrong location\nadded files for release workflow\nHorde_Prefs_Scope::serialize\nUpdate metadata and workflows for PHP 8 support\nImprove horde-prefs support for implicit LDAP and SQL config from horde config\nDevelopment mode for Prefs-3.0.0alpha5\nReleased Prefs-3.0.0alpha4\nAdd CI job for satis repo update\nci.yml and bootstrap.php adapted\nno errors left\nno errors left\nDevelopment mode for Prefs-3.0.0alpha5"
+3.0.0alpha7:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-10-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha6:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-10-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[rla] Improved PHP 8.1 compatibility.\n|+\n"
+3.0.0alpha5:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-03-10
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha4:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-10-16
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[rla] Make horde-prefs cli composer-ready and compatible with horde config.\n|+\n"
+3.0.0alpha3:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-03-13
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha2:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha1:
+  api: 3.0.0alpha1
+  state:
+    release: stable
+    api: stable
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[jan] Add Horde_Prefs#getScopeObject().\n"
 2.8.1:
   api: 2.8.0
   state:
@@ -160,8 +128,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix PostgreSQL backend with newer Horde_Db version.
+  notes: "[jan] Fix PostgreSQL backend with newer Horde_Db version.\n"
 2.8.0:
   api: 2.8.0
   state:
@@ -171,10 +138,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Use more efficient database access in SQL backend.
-    [jan] Fix and optimize removing preferences for a single application.
-    [jan] Add Horde_Prefs::removeAll().
+  notes: "[jan] Use more efficient database access in SQL backend.\n[jan] Fix and optimize removing preferences for a single application.\n[jan] Add Horde_Prefs::removeAll().\n"
 2.7.6:
   api: 2.7.0
   state:
@@ -184,9 +148,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
-    [jan] Mark PHP 7 as supported.
+  notes: "[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).\n[jan] Mark PHP 7 as supported.\n"
 2.7.5:
   api: 2.7.0
   state:
@@ -196,8 +158,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Improve Oracle compatibility.
+  notes: "[jan] Improve Oracle compatibility.\n"
 2.7.4:
   api: 2.7.0
   state:
@@ -207,8 +168,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Updated UK translation.
+  notes: "[jan] Updated UK translation.\n"
 2.7.3:
   api: 2.7.0
   state:
@@ -218,8 +178,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix issues with certain locales like Turkish.
+  notes: "[jan] Fix issues with certain locales like Turkish.\n"
 2.7.2:
   api: 2.7.0
   state:
@@ -229,8 +188,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Removed unused 'password' parameter.
+  notes: "[mms] Removed unused 'password' parameter.\n"
 2.7.1:
   api: 2.7.0
   state:
@@ -240,8 +198,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn't exist in a scope.
+  notes: "[mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn't exist in a scope.\n"
 2.7.0:
   api: 2.7.0
   state:
@@ -251,8 +208,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Add ArrayAccess, Countable, and Iterator functionality to the Horde_Prefs_Identity object.
+  notes: "[mms] Add ArrayAccess, Countable, and Iterator functionality to the Horde_Prefs_Identity object.\n"
 2.6.0:
   api: 2.6.0
   state:
@@ -262,11 +218,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Add Horde_Prefs#getCache().
-    [mms] Add Horde_Cache based cache driver.
-    [mms] Pref scopes are now loaded on-demand.
-    [mms] Add Horde_Prefs#changeScope().
+  notes: "[mms] Add Horde_Prefs#getCache().\n[mms] Add Horde_Cache based cache driver.\n[mms] Pref scopes are now loaded on-demand.\n[mms] Add Horde_Prefs#changeScope().\n"
 2.5.2:
   api: 2.5.0
   state:
@@ -276,8 +228,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Correct fix for iteration of Horde_Prefs_Scope object.
+  notes: "[mms] Correct fix for iteration of Horde_Prefs_Scope object.\n"
 2.5.1:
   api: 2.5.0
   state:
@@ -287,8 +238,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Fix iteration of Horde_Prefs_Scope object.
+  notes: "[mms] Fix iteration of Horde_Prefs_Scope object.\n"
 2.5.0:
   api: 2.5.0
   state:
@@ -298,8 +248,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Add ability to override locked pref status when setting value via Horde_Prefs#setValue().
+  notes: "[mms] Add ability to override locked pref status when setting value via Horde_Prefs#setValue().\n"
 2.4.1:
   api: 2.2.0
   state:
@@ -309,9 +258,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Fix removing prefs from storage backends (Bug #12208).
-    [mms] Fix fatal error in Horde_Prefs_Scope#valid().
+  notes: "[mms] Fix removing prefs from storage backends (Bug #12208).\n[mms] Fix fatal error in Horde_Prefs_Scope#valid().\n"
 2.4.0:
   api: 2.2.0
   state:
@@ -321,10 +268,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Add MongoDB storage driver.
-    [mms] Fix removing preference from backend (Bug #12207).
-    [mms] More compact internal/serialized representation of data in Horde_Prefs_Scope.
+  notes: "[mms] Add MongoDB storage driver.\n[mms] Fix removing preference from backend (Bug #12207).\n[mms] More compact internal/serialized representation of data in Horde_Prefs_Scope.\n"
 2.3.2:
   api: 2.2.0
   state:
@@ -334,9 +278,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Improve unit tests.
-    [mms] Simplify Horde_Prefs_Scope iterator.
+  notes: "[jan] Improve unit tests.\n[mms] Simplify Horde_Prefs_Scope iterator.\n"
 2.3.1:
   api: 2.2.0
   state:
@@ -346,8 +288,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Fix regression that broke Horde_Prefs_Identity#getDefaultFromAddress() in 2.3.0.
+  notes: "[mms] Fix regression that broke Horde_Prefs_Identity#getDefaultFromAddress() in 2.3.0.\n"
 2.3.0:
   api: 2.2.0
   state:
@@ -357,9 +298,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Add Horde_Prefs_Identity#getFromAddress().
-    [jan] Fix LDAP driver and use Horde_Ldap (Heinz Schweiger <heinz@htl-steyr.ac.at>, Request #11697).
+  notes: "[jan] Add Horde_Prefs_Identity#getFromAddress().\n[jan] Fix LDAP driver and use Horde_Ldap (Heinz Schweiger <heinz@htl-steyr.ac.at>, Request #11697).\n"
 2.2.0:
   api: 2.2.0
   state:
@@ -369,9 +308,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Horde_Prefs_Identity#getDefaultFromAddress() now returns a Horde_Mail_Rfc822_Address object.
-    [jan] Update French translation (Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+  notes: "[mms] Horde_Prefs_Identity#getDefaultFromAddress() now returns a Horde_Mail_Rfc822_Address object.\n[jan] Update French translation (Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>).\n"
 2.1.0:
   api: 2.1.0
   state:
@@ -381,12 +318,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] When removing a pref, reset its value in the cached scope to the default (Bug #11895).
-    [mms] Delete preference from storage backend when calling Horde_Prefs#remove().
-    [mms] Add throw parameter to Horde_Prefs#store().
-    [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
-    [jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).
+  notes: "[mms] When removing a pref, reset its value in the cached scope to the default (Bug #11895).\n[mms] Delete preference from storage backend when calling Horde_Prefs#remove().\n[mms] Add throw parameter to Horde_Prefs#store().\n[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).\n[jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).\n"
 2.0.1:
   api: 1.1.0
   state:
@@ -396,31 +328,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
-2.0.0beta1:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-07-19
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First beta release for Horde 5.
-2.0.0alpha1:
-  api: 1.1.0
-  state:
-    release: alpha
-    api: stable
-  date: 2012-07-05
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First alpha release for Horde 5.
-    [mms] Use new Horde_Mail API.
+  notes: "[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).\n"
 2.0.0:
   api: 1.1.0
   state:
@@ -430,9 +338,27 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 5.
-    [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+  notes: "First stable release for Horde 5.\n[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).\n"
+2.0.0beta1:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-07-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First beta release for Horde 5.\n"
+2.0.0alpha1:
+  api: 1.1.0
+  state:
+    release: alpha
+    api: stable
+  date: 2012-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First alpha release for Horde 5.\n[mms] Use new Horde_Mail API.\n"
 1.1.9:
   api: 1.1.0
   state:
@@ -442,7 +368,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: ~
+  notes: null
 1.1.8:
   api: 1.1.0
   state:
@@ -452,8 +378,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update translations.
+  notes: "[jan] Update translations.\n"
 1.1.7:
   api: 1.1.0
   state:
@@ -463,9 +388,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Catch exceptions from storage writing during shutdown.
-    [jan] Use binary column type for preference values (Bug #10803).
+  notes: "[jan] Catch exceptions from storage writing during shutdown.\n[jan] Use binary column type for preference values (Bug #10803).\n"
 1.1.6:
   api: 1.1.0
   state:
@@ -475,8 +398,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+  notes: "[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).\n"
 1.1.5:
   api: 1.1.0
   state:
@@ -486,8 +408,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Skip Kolab test if Horde_Kolab_Storage is not installed.
+  notes: "[jan] Skip Kolab test if Horde_Kolab_Storage is not installed.\n"
 1.1.4:
   api: 1.1.0
   state:
@@ -497,8 +418,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Fix identities when default_identity is locked (Bug #10098).
+  notes: "[mms] Fix identities when default_identity is locked (Bug #10098).\n"
 1.1.3:
   api: 1.1.0
   state:
@@ -508,8 +428,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Latvian translation.
+  notes: "[jan] Update Latvian translation.\n"
 1.1.2:
   api: 1.1.0
   state:
@@ -519,10 +438,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Lithuanian translation.
-    [jan] Update Brazilian Portuguese translation.
-    [mms] Null argument to Horde_Prefs#remove() will remove all prefs (Bug #10241).
+  notes: "[jan] Update Lithuanian translation.\n[jan] Update Brazilian Portuguese translation.\n[mms] Null argument to Horde_Prefs#remove() will remove all prefs (Bug #10241).\n"
 1.1.1:
   api: 1.1.0
   state:
@@ -532,8 +448,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [gwr] Revert dependency on Kolab_Storage-1.1.*
+  notes: "[gwr] Revert dependency on Kolab_Storage-1.1.*\n"
 1.1.0:
   api: 1.1.0
   state:
@@ -543,62 +458,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [gwr] Added a script for exporting/importing preferences from/to a backend.
-    [gwr] Added support for listing the scopes in some storage backends.
-    [gwr] Fixed the driver for the Kolab IMAP backend.
-1.0.0beta1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-16
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First beta release for Horde 4.
-1.0.0alpha1:
-  api: 1.0.0
-  state:
-    release: alpha
-    api: alpha
-  date: 2011-03-08
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First alpha release for Horde 4.
-    Abstract caching code into Horde_Prefs_Cache.
-    Removed Horde_Prefs_Storage_Kolab driver.
-    Abstract storage code into Horde_Prefs_Storage.
-    Add array access API to Horde_Prefs.
-    Remove dependency on horde/Core.
-    Use Horde_Db as backend for Sql driver.
-    Moved UI code to horde/Core.
-1.0.0RC2:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-29
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Second release candidate for Horde 4.
-1.0.0RC1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-22
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First release candidate for Horde 4.
-    [mjr] Fix IMSP driver.
+  notes: "[gwr] Added a script for exporting/importing preferences from/to a backend.\n[gwr] Added support for listing the scopes in some storage backends.\n[gwr] Fixed the driver for the Kolab IMAP backend.\n"
 1.0.0:
   api: 1.0.0
   state:
@@ -608,8 +468,47 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 4.
+  notes: "First stable release for Horde 4.\n"
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Second release candidate for Horde 4.\n"
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First release candidate for Horde 4.\n[mjr] Fix IMSP driver.\n"
+1.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-16
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First beta release for Horde 4.\n"
+1.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2011-03-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First alpha release for Horde 4.\nAbstract caching code into Horde_Prefs_Cache.\nRemoved Horde_Prefs_Storage_Kolab driver.\nAbstract storage code into Horde_Prefs_Storage.\nAdd array access API to Horde_Prefs.\nRemove dependency on horde/Core.\nUse Horde_Db as backend for Sql driver.\nMoved UI code to horde/Core.\n"
 0.0.3:
   api: 0.0.3
   state:
@@ -619,10 +518,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Data in postgres must be stored in a BYTEA field, not a TEXT field (Bug #8130).
-    Converted to package.xml 2.0 for pear.horde.org
-    Added files-based preferences backend (thomas.jarosch@intra2net.com, Request #6653)
+  notes: "Data in postgres must be stored in a BYTEA field, not a TEXT field (Bug #8130).\nConverted to package.xml 2.0 for pear.horde.org\nAdded files-based preferences backend (thomas.jarosch@intra2net.com, Request #6653)\n"
 0.0.2:
   api: 0.0.2
   state:
@@ -632,9 +528,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Add failover functionality, if one of the drivers is not available will fall back to session-based preferences.
-    Add support for separate read and write DB servers for the sql driver.
+  notes: "Add failover functionality, if one of the drivers is not available will fall back to session-based preferences.\nAdd support for separate read and write DB servers for the sql driver.\n"
 0.0.1:
   api: 0.0.1
   state:
@@ -644,5 +538,4 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Initial release as a PEAR package
+  notes: "Initial release as a PEAR package\n"
