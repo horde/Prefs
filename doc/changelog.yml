@@ -1,4 +1,14 @@
 ---
+3.0.1:
+  api: 3.0.1
+  state:
+    release: stable
+    api: stable
+  date: 2026-07-01
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "fix(prefs): resolve autoloader via composer proxy globals\nfix(prefs): invalidate cached scope synchronously on setValue"
 3.0.0:
   api: 3.0.0
   state:

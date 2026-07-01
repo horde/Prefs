@@ -24,7 +24,7 @@
     "keywords": [
         "preferences"
     ],
-    "time": "2026-06-30",
+    "time": "2026-07-01",
     "repositories": [],
     "require": {
         "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || ^3 || ^2",
