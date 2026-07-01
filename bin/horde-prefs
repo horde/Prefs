@@ -76,11 +76,13 @@ use \Composer\InstalledVersions;
 
 // Autoloader search run in composer setups
 $autoloaders = [
+    $GLOBALS['_composer_autoload_path'] ?? null,
     __DIR__ . '/../vendor/autoload.php', // prefs is the root package
     __DIR__ . '/../../../../vendor/autoload.php', // prefs is in the vendor dir
     // handle "git developer install" and pear cases
     'Horde/Autoloader/Default.php'
 ];
+$autoloaders = array_filter($autoloaders);
 
 foreach ($autoloaders as $autoloader) {
     if (file_exists($autoloader)) {
