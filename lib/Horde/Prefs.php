@@ -278,6 +278,30 @@ class Horde_Prefs implements ArrayAccess
             $storage->onChange($scope, $pref);
         }
 
+        /* Drop the cached scope synchronously. The dirty scope is persisted
+         * to storage by store(), registered as a shutdown function in the
+         * constructor. On the Horde_Core_Prefs_Cache_Session driver, running
+         * the invalidation from that shutdown callback races the session
+         * mirror in Horde\Core\Session\SessionLifecycle::shutdown(): the
+         * mirror copies HordeSession into $_SESSION before Horde_Prefs::store
+         * fires, so any cache mutation performed from store() never reaches
+         * the persisted session row. Invalidating here — while the write is
+         * still in the caller's control flow — guarantees the removal is
+         * part of the payload that gets mirrored, and the next request
+         * misses the cache and reloads the scope from storage. Best-effort:
+         * a cache backend hiccup must not turn a successful write into a
+         * failure. */
+        try {
+            $this->_cache->remove($scope);
+        } catch (Exception $e) {
+            if ($this->_opts['logger']) {
+                $this->_opts['logger']->log(
+                    __CLASS__ . ': Failed to invalidate cached scope (' . $scope . '): ' . $e->getMessage(),
+                    'WARN'
+                );
+            }
+        }
+
         if ($this->_opts['logger']) {
             $this->_opts['logger']->log(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
         }
